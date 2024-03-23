@@ -17,6 +17,8 @@ if (Astro.cookies.has("session")) {
 	}
 }
 
+
+
 const data = [
 	{
 		id: 12340987,
@@ -29,7 +31,8 @@ const data = [
 		owner: "some user object",
 		buddies: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
 		max_buddies: 8
-	},{
+	},
+	{
 		id: 12199912,
 		course: "COP3530",
 		name: "Unit 3 Study Group",
@@ -245,7 +248,7 @@ data.forEach((studyGroup) => {
 
 // sort the chunks0
 const sortedChunks = [...map.entries()].sort(
-	(a, b) => new Date(b[0]).getHours() - new Date(a[0]).getHours()
+	(a, b) => new Date(b[0]).getDate() - new Date(a[0]).getDate()
 );
 ---
 
