@@ -1,33 +1,17 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<nav></nav>
-		<main>
-			<div class="card">
-				<h1>Study Buddy</h1>
-				<form>
-					<input type="text" placeholder="Enter Email" />
-					<label for="">Password</label>
-					<input type="password" placeholder="Enter Password" />
-					<label for="">Confirm Password</label>
-					<input type="password" placeholder="Confirm Password" />
-
-					<button type="submit"> Register</button>
-				</form>
-			</div>
-		</main>
-	</body>
-	<script>
-		import "../js/register.js"
-	</script>
-</html>
+<Layout title="Register">
+	<h1>Register</h1>
+	<p>Already have an account? <a href="/signin">Sign in</a></p>
+	<form action="/api/auth/register" method="post">
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" />
+		<label for="email" for="email">Email</label>
+		<input type="email" name="email" id="email" />
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" />
+		<button type="submit">Login</button>
+	</form>
+</Layout>
