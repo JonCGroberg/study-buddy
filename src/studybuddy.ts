@@ -2,8 +2,9 @@ import { Timestamp, WriteResult } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 import { app, db } from "./firebase/server";
 
-const unknownUser: User = { name: "<unknown>" };
+const unknownUser: User = { id: "0", name: "<unknown>" };
 type User = {
+    id: string,
     name: string
 };
 
@@ -40,18 +41,34 @@ async function createStudyGroupType(doc: any): Promise<StudyGroup> {
         start: doc.start.toMillis(),
         end: doc.end.toMillis(),
         location: doc.location,
-        owner: { name: owner.displayName },
+        owner: { id: owner.uid, name: owner.displayName },
         buddies: buddies,
         max_buddies: doc.max_buddies
     }
 }
 
-async function serverStudyBook(user: string, course: string, name: string | undefined,
-        description: string | undefined, start: Timestamp, end: Timestamp, 
-        location: string, max_buddies: number): Promise<WriteResult> {
+type StudyBooking = {
+    owner: string,
+    course: string,
+    name?: string,
+    description?: string,
+    start: number,
+    end: number, 
+    location: string,
+    max_buddies: number
+};
+
+async function serverStudyBook(booking: StudyBooking): Promise<WriteResult> {
     return await db.collection("groups").doc().set({
-        course, name, description, start, end,
-        location, owner: user, buddies: [], max_buddies
+        owner: booking.owner,
+        course: booking.course,
+        name: booking.name,
+        description: booking.description,
+        start: booking.start,
+        end: booking.end,
+        location: booking.location,
+        buddies: [],
+        max_buddies: booking.max_buddies
     });
 }
 
