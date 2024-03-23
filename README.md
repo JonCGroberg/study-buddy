@@ -49,7 +49,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 ## Studdy Buddy
 
 POST /schedule
-Request: { "class": "COP3503C", "period": "day" }
+Request: { "course": "COP3503C", "period": "day" }
 Response: [ {
     "id": 12199912,
     "name": "optional",
@@ -64,7 +64,7 @@ Response: [ {
 
 POST /book
 Request: {
-    "class": "COP3503C",
+    "course": "COP3503C",
     "name": "optional",
     "description": "optional"
     "start": "*start_time*",
