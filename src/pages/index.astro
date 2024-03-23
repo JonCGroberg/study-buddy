@@ -1,6 +1,9 @@
 ---
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
+import Layout from "../layouts/Layout.astro";
+import Timeline from "../components/Timeline.jsx";
+
 
 /* Check if the user is authenticated */
 const auth = getAuth(app);
@@ -8,8 +11,19 @@ let authenticated = false;
 if (Astro.cookies.has("session")) {
 	const sessionCookie = Astro.cookies.get("session").value;
 	const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-	if(decodedCookie) authenticated = true;
+	if (decodedCookie) {
+		authenticated = true;
+		Astro.redirect("/test");
+	}
 }
+
+
 ---
 
-{authenticated}
+<Layout>
+	<nav>Nav bar</nav>
+
+	<main>
+		<Timeline />
+	</main>
+</Layout>
