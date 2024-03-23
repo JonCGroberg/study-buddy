@@ -2,8 +2,8 @@
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
-import Timeline from "../components/Timeline.jsx";
-
+import Timeline from "./components/Timeline";
+import Nav from "./components/Nav";
 
 /* Check if the user is authenticated */
 const auth = getAuth(app);
@@ -17,13 +17,242 @@ if (Astro.cookies.has("session")) {
 	}
 }
 
+const data = [
+	{
+		id: 12340987,
+		course: "COP4813",
+		name: "Advanced Software Development Code Refactoring Session",
+		description: "",
+		start: 1711226670,
+		end: "3:30 PM",
+		location: "Library Room 201",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},{
+		id: 12199912,
+		course: "COP3530",
+		name: "Unit 3 Study Group",
+		description: "",
+		start: " 1748742600",
+		end: "3:00 PM",
+		location: "Marston Room 2503",
+		owner: "some user object",
+		buddies: [{}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 89571234,
+		course: "COP4600",
+		name: "Group Project Meeting",
+		description: "",
+		start: " 1748742600",
+		end: "12:00 PM",
+		location: "Smith Hall 201",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 45678901,
+		course: "COP3402",
+		name: "Programming Languages Study Group",
+		description: "",
+		start: " 1748742600",
+		end: "4:30 PM",
+		location: "Engineering Building 305",
+		owner: "some user object",
+		buddies: [{}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 98765432,
+		course: "COP4710",
+		name: "Database Systems Code Review Session",
+		description: "",
+		start: " 1748742600",
+		end: "6:00 PM",
+		location: "Library Room 102",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 23456789,
+		course: "CEN3031",
+		name: "Software Engineering Study Group",
+		description: "",
+		start: " 1748742600",
+		end: "5:00 PM",
+		location: "Student Center 301",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 67890123,
+		course: "COP4331",
+		name: "Software Systems Problem Solving Group",
+		description: "",
+		start: " 1748742600",
+		end: "5:30 PM",
+		location: "Marston Room 1502",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 34561234,
+		course: "COP3530",
+		name: "Data Structures Workshop",
+		description: "",
+		start: " 1748742600",
+		end: "1:00 PM",
+		location: "Smith Hall 401",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 78901234,
+		course: "COP4530",
+		name: "Algorithms Code Refactoring Session",
+		description: "",
+		start: " 1748742600",
+		end: "4:00 PM",
+		location: "Engineering Building 204",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 12340987,
+		course: "COP4813",
+		name: "Advanced Software Development Study Group",
+		description: "",
+		start: " 1748742600",
+		end: "3:30 PM",
+		location: "Library Room 201",
+		owner: "some user object",
+		buddies: [{}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 76543210,
+		course: "COP3530",
+		name: "Data Structures Group Coding Challenge",
+		description: "",
+		start: " 1748742600",
+		end: "5:00 PM",
+		location: "Student Center 401",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 21098765,
+		course: "COP3402",
+		name: "Programming Languages Code Review Session",
+		description: "",
+		start: 1748742600,
+		end: "2:00 PM",
+		location: "Engineering Building 302",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 98765432,
+		course: "COP4710",
+		name: "Database Systems Study Marathon",
+		description: "",
+		start: 1748742600,
+		end: "5:00 PM",
+		location: "Library Room 301",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 23456789,
+		course: "CEN3031",
+		name: "Software Engineering Debugging Workshop",
+		description: "",
+		start: 1748742600,
+		end: "4:30 PM",
+		location: "Student Center 203",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 67890123,
+		course: "COP4331",
+		name: "Software Systems Study Group",
+		description: "",
+		start: 1748742600,
+		end: "5:30 PM",
+		location: "Marston Room 1502",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 34561234,
+		course: "COP3530",
+		name: "Data Structures Problem Solving Group",
+		description: "",
+		start: 1748742600,
+		end: "1:00 PM",
+		location: "Smith Hall 401",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 78901234,
+		course: "COP4530",
+		name: "Algorithms Workshop",
+		description: "",
+		start: 1679673600,
+		end: "4:00 PM",
+		location: "Engineering Building 204",
+		owner: "some user object",
+		buddies: [{}, {}],
+		max_buddies: 8
+	},
+	{
+		id: 76543210,
+		course: "COP3530",
+		name: "Data Structures Study Marathon",
+		description: "",
+		start: 1679673600,
+		end: "5:00 PM",
+		location: "Student Center 301",
+		owner: "some user object",
+		buddies: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+		max_buddies: 8
+	}
+];
 
+// chunk together by time
+const map = new Map();
+data.forEach((studyGroup) => {
+	if (map.has(studyGroup.start))
+		map.set(studyGroup.start, [...map.get(studyGroup.start), studyGroup]);
+	else map.set(studyGroup.start, [studyGroup]);
+});
+
+// sort the chunks0
+const sortedChunks = [...map.entries()].sort(
+	(a, b) => new Date(b[0]).getHours() - new Date(a[0]).getHours()
+);
 ---
 
 <Layout>
-	<nav>Nav bar</nav>
+	<Nav />
 
 	<main>
-		<Timeline />
+		<Timeline client:load studyGroups={sortedChunks} />
 	</main>
 </Layout>
