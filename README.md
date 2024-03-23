@@ -45,3 +45,31 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Studdy Buddy
+
+POST /schedule
+Request: { "class": "COP3503C", "period": "day" }
+Response: [ {
+    "id": 12199912,
+    "name": "optional",
+    "description": "optional",
+    "start": *start_time*,
+    "end": "*end_time*",
+    "location": ?,
+    "owner": [user]
+    "buddies": [...users],
+    "max_buddies": 8,
+}, ... ]
+
+POST /book
+Request: {
+    "class": "COP3503C",
+    "name": "optional",
+    "description": "optional"
+    "start": "*start_time*",
+    "end_time": "*end_time*",
+    "location": ?,
+    "max_buddies": 8
+}
+
