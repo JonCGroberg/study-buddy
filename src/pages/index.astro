@@ -28,9 +28,10 @@ const data = await fetch("http://localhost:4321/api/search", {
 // chunk together by time
 const map = new Map();
 data.forEach((studyGroup) => {
-	const truncatedToHours = ((studyGroup.start/1000)-((studyGroup.start/1000)%3600));
+	const truncatedToHours =
+		studyGroup.start / 1000 - ((studyGroup.start / 1000) % 3600);
 	if (map.has(truncatedToHours))
-		map.set(truncatedToHours, [...map.get(truncatedToHours), truncatedToHours]);
+		map.set(truncatedToHours, [...map.get(truncatedToHours), studyGroup]);
 	else map.set(truncatedToHours, [studyGroup]);
 });
 
