@@ -11,6 +11,7 @@ type User = {
 type StudyGroup = {
     id: string,
     course: string,
+    course_title: string,
     name?: string,
     description?: string,
     start: number,
@@ -44,6 +45,7 @@ async function createStudyGroupType(docId: string, data: any): Promise<StudyGrou
     return {
         id: docId,
         course: data.course,
+        course_title: data.course_title,
         name: data.name,
         description: data.description,
         start: data.start.toMillis(),
@@ -56,6 +58,7 @@ async function createStudyGroupType(docId: string, data: any): Promise<StudyGrou
 
 type StudyBooking = {
     course: string,
+    course_title: string,
     name?: string,
     description?: string,
     start: number,
@@ -67,6 +70,7 @@ type StudyBooking = {
 async function serverStudyBook(booking: StudyBooking): Promise<WriteResult> {
     return await db.collection("groups").doc().set({
         course: booking.course,
+        course_title: booking.course_title,
         name: booking.name,
         description: booking.description,
         start: booking.start,
