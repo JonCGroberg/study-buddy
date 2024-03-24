@@ -40,28 +40,3 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-
-POST /schedule
-Request: { "course": "COP3503C", "period": "day" }
-Response: [ {
-    "id": 12199912,
-    "name": "optional",
-    "description": "optional",
-    "start": *start_time*,
-    "end": "*end_time*",
-    "location": ?,
-    "buddies": [...users],
-    "max_buddies": 8,
-}, ... ]
-
-POST /book
-Request: {
-    "course": "COP3503C",
-    "name": "optional",
-    "description": "optional"
-    "start": "*start_time*",
-    "end_time": "*end_time*",
-    "location": ?,
-    "max_buddies": 8
-}
-
