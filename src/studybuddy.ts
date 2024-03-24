@@ -1,4 +1,4 @@
-import { Timestamp, WriteResult } from "firebase-admin/firestore";
+import { FieldValue, Timestamp, WriteResult } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 import { app, db } from "./firebase/server";
 
@@ -25,25 +25,24 @@ async function serverStudySearch(courses: string[]): Promise<StudyGroup[]> {
                              .where("course", "in", courses)
                              .where("end", ">", Timestamp.now()).get();
     return Promise.all(snapshot.docs.map(async (doc: any): Promise<StudyGroup> => 
-                await createStudyGroupType(doc, doc.data())));
+                await createStudyGroupType(doc.id, doc.data())));
 }
 
 async function serverUserStudySearch(user: string): Promise<StudyGroup[]> {
-    const groups = await db.collection("groups")
+    const snapshot = await db.collection("groups")
                              .where("end", ">", Timestamp.now())
                              .where("buddies", "array-contains-any", [user]).get();
-    return Promise.all(groups.docs.map(
-        async (doc: any): Promise<StudyGroup> => await createStudyGroupType(doc, doc.data())));
+    return Promise.all(snapshot.docs.map(
+        async (doc: any): Promise<StudyGroup> => await createStudyGroupType(doc.id, doc.data())));
 }
 
-async function createStudyGroupType(doc: any, data: any): Promise<StudyGroup> {
+async function createStudyGroupType(docId: string, data: any): Promise<StudyGroup> {
     const buddies = await Promise.all(data.buddies.map(async (buddy: string) => {
         const user = await getAuth(app).getUser(buddy);
         return !user ? unknownUser : { id: user.uid, name: user.displayName };
     }));
-    console.log(data.__name__);
     return {
-        id: data.__name__,
+        id: docId,
         course: data.course,
         name: data.name,
         description: data.description,
@@ -78,4 +77,35 @@ async function serverStudyBook(booking: StudyBooking): Promise<WriteResult> {
     });
 }
 
-export { type User, type StudyGroup, serverStudySearch, serverUserStudySearch, serverStudyBook }
+async function serverStudyLeave(user: string, group: string): Promise<boolean> {
+    const ref = db.collection("groups").doc(group);
+    await ref.update({
+        buddies: FieldValue.arrayRemove(user)
+    });
+
+    const doc = await ref.get();
+    if(!doc.exists) return false;
+
+    const data = doc.data();
+    if(data.buddies.length == 0) await ref.delete();
+
+    return true;
+}
+
+async function serverStudyJoin(user: string, group: string): Promise<boolean> {
+    const ref = db.collection("groups").doc(group);
+    const doc = await ref.get();
+    if(!doc.exists) return false;
+
+    const data = doc.data();
+    if(data.buddies.length >= data.max_buddies || user in data.buddies) return false;
+
+    await ref.update({
+        buddies: FieldValue.arrayUnion(user)
+    });
+
+    return true;
+}
+
+export { type User, type StudyGroup, serverStudySearch, serverUserStudySearch,
+    serverStudyBook, serverStudyLeave, serverStudyJoin }
