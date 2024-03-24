@@ -34,7 +34,11 @@ const title = user.name + "'s Study Groups";
 <Layout title={title}>
 	<div class="bg-body-secondary pb-5 " style="min-height: 100vh;">
 		<Nav title={title} />
-		<!-- <Search client:load/> -->
+        <Search
+			courses={[]}
+			client:load
+		/>
+
 		<main class="">
 			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 		</main>

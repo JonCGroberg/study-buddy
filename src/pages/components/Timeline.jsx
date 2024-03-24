@@ -76,17 +76,17 @@ const Card = ({ cardData, userId }) => {
 							className="btn-sm btn small btn-width  btn-outline-primary ms-0 p-2 py-2 px-4 mx-2 me-4 fw-medium "
 						>
 							{"Join This Group " + cardData.buddies.length}/
-							{cardData.max_buddies}
+							{cardData.max_buddies < 1 ? "∞" : cardData.max_buddies }
 						</button>
 					) : (
 						<button
 							onClick={() => handleLeave(cardData.id)}
 							className="btn btn-sm small btn-width  btn-outline-danger ms-0 p-2 px-4 mx-2 me-4 fw-medium "
 						>
-							{"Leave Group " + cardData.buddies.length}/{cardData.max_buddies}
+							{"Leave Group " + cardData.buddies.length}/{cardData.max_buddies < 1 ? "∞" : cardData.max_buddies }
 						</button>
 					)}
-					<button className="btn btn-sm p-2 text-primary fw-medium ">
+					<button className="btn btn-sm p-2 text-primary fw-medium " onClick={() => handleDetails(cardData)}>
 						More Details
 					</button>
 				</div>
@@ -121,6 +121,11 @@ function handleJoin(groupID) {
 		console.log(data);
 		window.location.reload()
 	});
+}
+
+function handleDetails(cardData) {
+    // TODO: show more details
+    console.log(cardData);
 }
 
 function formatAMPM(date) {
