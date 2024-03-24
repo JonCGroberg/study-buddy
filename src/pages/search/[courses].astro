@@ -1,10 +1,18 @@
 ---
+import { app } from "../../firebase/server";
+import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
 import { serverStudySearch } from "../../studybuddy";
 import Layout from "../../layouts/Layout.astro";
 import Timeline from "../components/Timeline";
 import Nav from "../components/Nav";
 
 const { courses } = Astro.params;
+
+const auth = getAuth(app);
+let user: DecodedIdToken;
+if(Astro.cookies.has("session"))
+    user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
+if(!user) return Astro.redirect("/signin");
 
 const map = new Map();
 const groups = await serverStudySearch(courses.split("&"));
@@ -26,6 +34,6 @@ const sortedChunks = [...map.entries()].sort(
 	<Nav />
 
 	<main>
-		<Timeline client:load studyGroups={sortedChunks} />
+		<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 	</main>
 </Layout>
