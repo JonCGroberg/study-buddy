@@ -7,7 +7,7 @@ import Timeline from "../components/Timeline";
 import Nav from "../components/Nav";
 
 const { courses } = Astro.params;
-const title = "Groups"
+const title = "Group Finder"
 
 const auth = getAuth(app);
 let user: DecodedIdToken;
@@ -32,9 +32,10 @@ const sortedChunks = [...map.entries()].sort(
 ---
 
 <Layout {title}>
-	<Nav />
-
-	<main>
-		<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
-	</main>
+	<div class="bg-body-secondary pb-5">
+		<Nav title={title} />
+		<main class="">
+			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
+		</main>
+	</div>
 </Layout>

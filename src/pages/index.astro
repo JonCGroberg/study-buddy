@@ -30,10 +30,11 @@ const sortedChunks = [...map.entries()].sort(
 const title = user.name + "'s Study Groups";
 ---
 
-<Layout {title}>
-	<Nav title={title} />
-
-	<main>
-		<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
-	</main>
+<Layout title={title}>
+	<div class="bg-body-secondary pb-5 ">
+		<Nav title={title} />
+		<main class="">
+			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
+		</main>
+	</div>
 </Layout>

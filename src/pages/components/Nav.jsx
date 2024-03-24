@@ -2,7 +2,7 @@ import "../styles/styles.css"
 
 const Nav = ({ title = "", bookable = true }) => {
 	return (
-		<nav className="navbar navbar-expand-lg bg-white shadow-sm border">
+		<nav className="navbar navbar-expand-lg bg-white shadow-sm border p-0 m-0">
 			<div className="container-fluid px-5">
 				<a className="navbar-brand" href="/">
 					<img src="/image.png"></img>
