@@ -5,22 +5,23 @@ import { serverStudySearch } from "../../studybuddy";
 import Layout from "../../layouts/Layout.astro";
 import Timeline from "../components/Timeline";
 import Nav from "../components/Nav";
+import Search from "../components/Search";
 
 const { courses } = Astro.params;
-const title = "Group Finder"
+const title = "Group Finder";
 
 const auth = getAuth(app);
 let user: DecodedIdToken;
-if(Astro.cookies.has("session"))
-    user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if(!user) return Astro.redirect("/signin");
+if (Astro.cookies.has("session"))
+	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
+if (!user) return Astro.redirect("/signin");
 
 const map = new Map();
 const groups = await serverStudySearch(courses.split("&"));
 groups.forEach(async (studyGroup) => {
 	const truncatedToHours =
 		studyGroup.start / 1000 - ((studyGroup.start / 1000) % 3600);
-	if(map.has(truncatedToHours))
+	if (map.has(truncatedToHours))
 		map.set(truncatedToHours, [...map.get(truncatedToHours), studyGroup]);
 	else map.set(truncatedToHours, [studyGroup]);
 });
@@ -34,6 +35,10 @@ const sortedChunks = [...map.entries()].sort(
 <Layout {title}>
 	<div class="bg-body-secondary pb-5" style="min-height: 100vh;">
 		<Nav title={title} />
+		<Search
+			courses={courses.split("&")}
+			client:load
+		/>
 		<main class="">
 			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 		</main>
