@@ -8,16 +8,16 @@ import Nav from "./components/Nav";
 
 const auth = getAuth(app);
 let user: DecodedIdToken;
-if(Astro.cookies.has("session"))
-    user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if(!user) return Astro.redirect("/signin");
+if (Astro.cookies.has("session"))
+	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
+if (!user) return Astro.redirect("/signin");
 
 const map = new Map();
 const groups = await serverUserStudySearch(user.uid);
 groups.forEach(async (studyGroup) => {
 	const truncatedToHours =
 		studyGroup.start / 1000 - ((studyGroup.start / 1000) % 3600);
-	if(map.has(truncatedToHours))
+	if (map.has(truncatedToHours))
 		map.set(truncatedToHours, [...map.get(truncatedToHours), studyGroup]);
 	else map.set(truncatedToHours, [studyGroup]);
 });
@@ -26,13 +26,14 @@ groups.forEach(async (studyGroup) => {
 const sortedChunks = [...map.entries()].sort(
 	(a, b) => new Date(b[0]).getDate() - new Date(a[0]).getDate()
 );
+
+const title = user.name + "'s Study Groups";
 ---
 
-<Layout>
-	<Nav />
+<Layout {title}>
+	<Nav title={title} />
 
 	<main>
-        <p>Your Study Groups</p>
 		<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 	</main>
 </Layout>

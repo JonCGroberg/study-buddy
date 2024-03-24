@@ -38,7 +38,7 @@ const Card = ({ cardData, userId }) => {
 			<div className="card-body row">
 				<div className="col">
 					{" "}
-					<h4 className="col">
+					<h4 className="col py-1">
 						<span>
 							{cardData.course}
 							{cardData.name ? " - " + cardData.name : ""}
