@@ -59,24 +59,24 @@ async function createStudyGroupType(docId: string, data: any): Promise<StudyGrou
 type StudyBooking = {
     course: string,
     course_title: string,
-    name?: string,
-    description?: string,
+    name: string,
+    description: string,
     start: number,
     end: number, 
     location: string,
     max_buddies: number
 };
 
-async function serverStudyBook(booking: StudyBooking): Promise<WriteResult> {
+async function serverStudyBook(user: string, booking: StudyBooking): Promise<WriteResult> {
     return await db.collection("groups").doc().set({
         course: booking.course,
         course_title: booking.course_title,
         name: booking.name,
         description: booking.description,
-        start: booking.start,
-        end: booking.end,
+        start: new Timestamp(booking.start, 0),
+        end: new Timestamp(booking.end, 0),
         location: booking.location,
-        buddies: [],
+        buddies: [user],
         max_buddies: booking.max_buddies
     });
 }

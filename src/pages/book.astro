@@ -10,12 +10,142 @@ if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
 if (!user) return Astro.redirect("/signin");
 
+function getWeekDates() {
+    const start = new Date();
+    const dates = [];
+    for(let i = 0; i < 7; i++) {
+        const date = new Date();
+        date.setDate(start.getDate() + i);
+        dates.push(date);
+    }
+    return dates;
+}
+
+function getTimeBlock(i) {
+    const date = new Date();
+    date.setHours(Math.floor(i / 4));
+    date.setMinutes((i % 4) * 15);
+    date.setSeconds(0);
+    return date;
+}
+
 const title = "Book a Study Session"
 ---
 
 <Layout {title}>
 	<Nav title={title} bookable={false} />
-    <main>
-
+    <main class="bg-body-secondary pb-5 ">
+        <form>
+            <!---COURSE--->
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Unnamed Study Session">
+            </div> 
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows=3 aria-describedby="descriptionHelp"></textarea>
+                <div id="descriptionHelp" class="form-text">
+                    Add any useful info here!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" required="true" placeholder="Building and Room Number, or Online" aria-describedby="groupLocationHelp">
+                <div id="groupLocationHelp" class="form-text">
+                    Be as specific as possible!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="size" class="form-label">Group Size</label>
+                <select class="form-select" id="size" name="size" aria-label="Session size selector">
+                  <option value="4">Small (4)</option>
+                  <option value="8" selected>Medium (8)</option>
+                  <option value="16">Large (16)</option>
+                  <option value="-1">Unlimited</option>
+                </select>
+            </div>
+            <div class="row mb-3">
+                <label class="form-label">Start</label>
+                <div class="col-auto">
+                    <select class="form-select" id="startDate" name="startDate" aria-label="Session start day selector">
+                        { getWeekDates().map((date, index) => <option value={index}>
+                            {date.toLocaleString('en-us', {  weekday: 'long' }) + ", " + date.toLocaleString('en-us', {  month: 'long' }) + " " + date.getDate()}</option>)
+                        }
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label class="form-label">@</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" id="startTime" name="startTime" aria-label="Session start time selector">
+                        { 
+                            [...Array(24 * 4).keys()].map((index) => <option value={index}>{getTimeBlock(index).toLocaleTimeString('en-US')}</option>)
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="form-label">End</label>
+                <div class="col-auto">
+                    <select class="form-select" id="endDate" name="endDate" aria-label="Session end day selector">
+                        { getWeekDates().map((date, index) => <option value={index}>
+                            {date.toLocaleString('en-us', {  weekday: 'long' }) + ", " + date.toLocaleString('en-us', {  month: 'long' }) + " " + date.getDate()}</option>)
+                        }
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label class="form-label">@</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" id="endTime" name="endTime" aria-label="Session end time selector">
+                        { 
+                            [...Array(24 * 4).keys()].map((index) => <option value={index}>{getTimeBlock(index).toLocaleTimeString('en-US')}</option>)
+                        }
+                    </select>
+                </div>
+            </div>
+            <button id="bookButton" type="submit" class="btn btn-primary">Book</button>
+        </form>
     </main>
 </Layout>
+<script>
+    function getTimeBlock(i) {
+        const date = new Date();
+        date.setHours(Math.floor(i / 4));
+        date.setMinutes((i % 4) * 15);
+        date.setSeconds(0);
+        return date;
+    }
+
+    function getUnixTimestampFromInputs(day, time) {
+        if(!day || !time) return undefined;
+        const date = getTimeBlock(time);
+        date.setDate(Number(date.getDate()) + Number(day));
+        return Math.floor(date.getTime() / 1000);
+    }
+
+    const form = document.querySelector("form") as HTMLFormElement;
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault();
+		const formData = new FormData(form);
+        const course = "MAS3114";
+		const name = formData.get("name")?.toString(); // empty string on emtpy
+		let description = formData.get("password")?.toString(); // undefined on empty
+        description = !description ? "" : description;
+		const location = formData.get("location")?.toString(); // emtpy string on empty
+        const size = formData.get("size");
+        const start = getUnixTimestampFromInputs(formData.get("startDate"), formData.get("startTime"));
+        const end = getUnixTimestampFromInputs(formData.get("endDate"), formData.get("endTime"));
+
+        if(location == "" || !size || !start || !end) return; // TODO: error
+
+        console.log(await fetch("/api/book", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ course: course, course_title: "test", name: name, description: description,
+                start: start, end: end, location: location, max_buddies: size })
+        }));
+	});
+</script>
