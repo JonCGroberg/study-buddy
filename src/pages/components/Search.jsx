@@ -92,6 +92,7 @@ const Search = ({ courses = [] }) => {
 									const filtered = selected.filter((elem) => elem != code);
 									setSelected(filtered);
 									window.location.replace(
+                                        filtered.length == 0 ? "/" :
 										"/search/" + filtered.join("&") + "?=" + search
 									);
 								}}
