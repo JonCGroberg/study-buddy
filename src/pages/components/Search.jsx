@@ -25,9 +25,9 @@ const Search = ({ courses = []}) => {
 	}, []);
 
 
-	useEffect(()=>{
+	// useEffect(()=>{
 
-	},[selected])
+	// },[selected])
 
 	// setSearchResults([]);
 
