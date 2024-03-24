@@ -27,7 +27,7 @@ const Nav = ({ title = "", bookable = true }) => {
 						</h6>
 					</div>
                     { bookable && (<a href="/book" className="btn btn-primary mx-2"> New Study Session</a>) }
-                    <a href="/api/auth/signout" className="btn btn-secondary mx-2">Signout</a>
+                    <a href="/api/auth/signout" className="btn btn-outline-secondary  mx-2">Signout</a>
 				</div>
 			</div>
 		</nav>

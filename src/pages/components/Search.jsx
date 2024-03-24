@@ -24,7 +24,7 @@ const Search = ({ courses = [] }) => {
 	// setSearchResults([]);
 
 	return (
-		<div className="container-fluid mt-5 ps-5">
+		<div className="container-fluid mt-5 ms-4 ps-4">
 			<div className="row px-5 ms-0 me-0">
 				<div
 					className="w-100"
@@ -58,8 +58,10 @@ const Search = ({ courses = [] }) => {
 							<select
 								// value={selected}
 								onChange={(e) => {
-                                    window.location.replace("/")
-                                    setSelected([...selected, e.target.value])}}
+									const newSelected = [...selected, e.target.value];
+									window.location.replace("/search/" + newSelected.join("&"));
+									setSelected(newSelected);
+								}}
 								className=" form-select"
 							>
 								{searchResults.map((option, index) => (
@@ -79,7 +81,7 @@ const Search = ({ courses = [] }) => {
 							<button
 								key={index}
 								onClick={() => {
-                                    const filtered = selected.filter((elem) => elem != code);
+									const filtered = selected.filter((elem) => elem != code);
 									setSelected(filtered);
 									window.location.replace("/search/" + filtered.join("&"));
 								}}
