@@ -10,12 +10,10 @@ let user: DecodedIdToken;
 if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
 if (!user) return Astro.redirect("/welcome");
-
-const title = "Book a Study Session";
 ---
 
-<Layout {title}>
-	<Nav title={title} bookable={false} />
+<Layout title="StudyBuddies | Book">
+	<Nav title={"Book a Study Session"} bookable={false} />
 	<main class="bg-body-secondary pb-5">
 		<Form />
 	</main>
