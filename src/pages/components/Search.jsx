@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
-const Search = ({ courses = [] }) => {
-	const lastSearch = new URLSearchParams(window.location.search).get(lastSearch) || ""
-
+const Search = ({ courses = []}) => {
+	// const params = (new URLSearchParams(window.location.search))
+	// const lastSearch =  params.get("lastSearch") || ""
+//
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
-	let [search, setSearch] = useState(lastSearch);
-	let [dropdown, setDropdown] = useState(!courses ? false : true);
+	let [search, setSearch] = useState([]);
+	let [dropdown, setDropdown] = useState(courses.length==0 ? false : true);
 	let [selected, setSelected] = useState(courses);
 	let [selection, setSelection] = useState();
 
@@ -22,6 +23,11 @@ const Search = ({ courses = [] }) => {
 		// 	return courses.filter((course) => course.code.includes(code));
 		// }
 	}, []);
+
+
+	useEffect(()=>{
+
+	},[selected])
 
 	// setSearchResults([]);
 

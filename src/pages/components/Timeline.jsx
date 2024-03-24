@@ -3,7 +3,7 @@ import "../styles/styles.css";
 const Timeline = ({ studyGroups, userId }) => {
 	return studyGroups.length == 0 ? (
         <div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 text-center ">
-            <div class="col-auto text-center w-100 mx-auto  card p-5" style={{maxWidth : 400}}>
+            <div className="col-auto text-center w-100 mx-auto  card p-5" style={{maxWidth : 400}}>
                 <div className="card-body">
 					<p>No Sessions Found</p>
 					<a className="btn btn-primary" href="/book">Book one now!</a>
