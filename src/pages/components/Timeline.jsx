@@ -1,5 +1,5 @@
-const Timeline = ({ studyGroups }) => {
-	console.log(studyGroups);
+const Timeline = ({ studyGroups, userId }) => {
+	console.log(userId);
 	return (
 		<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 ">
 			{studyGroups.map((sameHourGroups) => (
@@ -13,7 +13,7 @@ const Timeline = ({ studyGroups }) => {
 
 							return (
 								<>
-									<Card key={index} cardData={group} />
+									<Card key={index} cardData={group} userId={userId} />
 								</>
 							);
 						})}
@@ -24,12 +24,12 @@ const Timeline = ({ studyGroups }) => {
 	);
 };
 
-const Card = ({ cardData }) => {
-	// console.log(cardData);
+const Card = ({ cardData, userId }) => {
+	const userAlreadyJoined = cardData.buddies.includes(userId);
 	return (
 		<div className="card p-2">
 			<div className="card-body row">
-				<div className="col ">
+				<div className="col">
 					{" "}
 					<h4 className="col">
 						<span>
@@ -38,17 +38,26 @@ const Card = ({ cardData }) => {
 						</span>
 					</h4>{" "}
 					<div className="row col-sm m-0">
-						<h6 className="col-auto bg-secondary-subtle rounded-2 py-2">
+						<h6 className=" col-lg-auto col-12 bg-secondary-subtle rounded-2 py-2 ">
 							Ends {formatAMPM(new Date(cardData.end)).toString()}
 						</h6>
-						<h6 className="col-auto py-2">{cardData.location}</h6>
+						<h6 className="col-auto py-2 small text-secondary ">
+							{cardData.location}
+						</h6>
 					</div>
 				</div>
 
 				<div className="col-12 col-md-auto my-auto">
-					<button className="btn btn-outline-primary p-2 px-3 mx-2 me-4 fw-medium ">
-						Join This Group ({cardData.buddies.length}/{cardData.max_buddies})
-					</button>
+					{userAlreadyJoined ? (
+						<button className="btn btn-outline-primary ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
+							{"Join This Group " + cardData.buddies.length}/
+							{cardData.max_buddies}
+						</button>
+					) : (
+						<button className="btn btn-outline-danger ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
+							{"Leave Group " + cardData.buddies.length}/{cardData.max_buddies}
+						</button>
+					)}
 					<button className="btn p-2 text-primary fw-medium ">
 						More Details
 					</button>

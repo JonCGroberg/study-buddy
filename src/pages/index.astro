@@ -34,6 +34,6 @@ const sortedChunks = [...map.entries()].sort(
 
 	<main>
         <p>Your Study Groups</p>
-		<Timeline client:load studyGroups={sortedChunks} />
+		<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 	</main>
 </Layout>
