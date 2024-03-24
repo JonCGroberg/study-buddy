@@ -11,7 +11,7 @@ const auth = getAuth(app);
 let user: DecodedIdToken;
 if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if (!user) return Astro.redirect("/signin");
+if (!user) return Astro.redirect("/welcome");
 
 const map = new Map();
 const groups = await serverUserStudySearch(user.uid);
@@ -27,19 +27,17 @@ groups.forEach(async (studyGroup) => {
 const sortedChunks = [...map.entries()].sort(
 	(a, b) => new Date(b[0]).getDate() - new Date(a[0]).getDate()
 );
-
-const title = user.name + "'s Study Groups";
 ---
 
-<Layout title={title}>
+<Layout title={"StudyBuddies | Home"}>
 	<div class="bg-body-secondary pb-5 " style="min-height: 100vh;">
-		<Nav title={title} />
+		<Nav title={"Your Study Groups"} />
         <Search
 			courses={[]}
 			client:load
 		/>
 
-		<main class="">
+		<main>
 			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 		</main>
 	</div>

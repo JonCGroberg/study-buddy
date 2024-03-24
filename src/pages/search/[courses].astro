@@ -8,13 +8,12 @@ import Nav from "../components/Nav";
 import Search from "../components/Search";
 
 const { courses } = Astro.params;
-const title = "Group Finder";
 
 const auth = getAuth(app);
 let user: DecodedIdToken;
 if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if (!user) return Astro.redirect("/signin");
+if (!user) return Astro.redirect("/welcome");
 
 const map = new Map();
 const groups = await serverStudySearch(courses.split("&"));
@@ -32,9 +31,9 @@ const sortedChunks = [...map.entries()].sort(
 );
 ---
 
-<Layout {title}>
+<Layout title="StudyBuddies | Search">
 	<div class="bg-body-secondary pb-5" style="min-height: 100vh;">
-		<Nav title={title} />
+		<Nav title={"Find Study Groups"} />
 		<Search courses={courses.split("&")} client:load />
 		<main>
 			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />

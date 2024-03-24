@@ -9,14 +9,12 @@ const auth = getAuth(app);
 let user: DecodedIdToken;
 if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if (!user) return Astro.redirect("/signin");
-
-const title = "Book a Study Session";
+if (!user) return Astro.redirect("/welcome");
 ---
 
-<Layout {title}>
-	<Nav title={title} bookable={false} />
-	<main class="bg-body-secondary pb-5 pt-2">
+<Layout title="StudyBuddies | Book">
+	<Nav title={"Book a Study Session"} bookable={false} />
+	<main class="bg-body-secondary pb-5">
 		<Form client:load/>
 	</main>
 </Layout>

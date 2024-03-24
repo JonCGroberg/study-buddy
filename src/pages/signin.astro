@@ -14,25 +14,20 @@ if (Astro.cookies.has("session")) {
 }
 ---
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
-<style>
-    .the-main-font {
-        font-family: "Inter", sans-serif; 
-    }
-  </style>
-
-<Layout title="Sign in">
+<Layout title="StudyBuddies | Sign In">
   <div class="container mt-3">
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-md-6 offset-md-3">
-        <h1 class="text-center the-main-font fw-bold">Sign In</h1>
-        <p class="text-center the-main-font">
-          New here? <a href="/register" class="the-main-font">Create an account</a>
+        <div class="row justify-content-center">
+            <h2 class="col-auto"><img src="/image.png" class="" alt="Image" /></h2>
+            <h2 class="col-auto">StudyBuddies</h2>
+        </div>
+        <p class="text-center">
+          New here? <a href="/register">Create an account</a>
         </p>
         <form action="/api/auth/signin" method="post">
           <div class="mb-3">
-            <label for="email" class="form-label the-main-font">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input
               type="email"
               class="form-control"
@@ -42,7 +37,7 @@ if (Astro.cookies.has("session")) {
             />
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label the-main-font">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input
               type="password"
               class="form-control"
@@ -51,7 +46,7 @@ if (Astro.cookies.has("session")) {
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary the-main-font">Log In</button>
+          <button type="submit" class="btn btn-primary">Log In</button>
         </form>
       </div>
     </div>
