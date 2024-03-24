@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
 const Search = ({ courses = [] }) => {
+	// const lastSearch =
+
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
-	let [search, setSearch] = useState([]);
+	let [search, setSearch] = useState("lastSearch");
 	let [dropdown, setDropdown] = useState(!courses ? false : true);
 	let [selected, setSelected] = useState(courses);
 	let [selection, setSelection] = useState();
@@ -62,7 +64,9 @@ const Search = ({ courses = [] }) => {
 									if (selected.includes(e.target.value)) return;
 
 									const newSelected = [...selected, e.target.value];
-									window.location.replace("/search/" + newSelected.join("&"));
+									window.location.replace(
+										"/search/" + newSelected.join("&") + "?lastSearch=" + search
+									);
 									setSelected(newSelected);
 								}}
 								className=" form-select"
@@ -87,7 +91,9 @@ const Search = ({ courses = [] }) => {
 								onClick={() => {
 									const filtered = selected.filter((elem) => elem != code);
 									setSelected(filtered);
-									window.location.replace("/search/" + filtered.join("&"));
+									window.location.replace(
+										"/search/" + filtered.join("&") + "?=" + search
+									);
 								}}
 								className="btn btn-sm btn-light col mx-1 ps-3 fw-light shadow-sm  "
 								style={{ border: "1px solid " + getCourseColor(code) }}
