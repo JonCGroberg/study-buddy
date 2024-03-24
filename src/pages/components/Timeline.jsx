@@ -8,15 +8,11 @@ const Timeline = ({ studyGroups, userId }) => {
 					<h6 className="small w-100 border-1 border-bottom border-dark-subtle pb-2 mt-0 mb-4">
 						{formatAMPM(new Date(sameHourGroups[0] * 1000)).toString()}
 					</h6>
-					<div className="small px-3 ps-sm-3 ps-lg-5 ms-sm-3 ms-lg-5 row gap-3">
+					<div className="small px-3 ps-sm-3 ps-lg-4 ms-sm-3 ms-lg-4 row gap-3">
 						{sameHourGroups[1].map((group, index) => {
-							console.log(group);
+							// console.log(group);
 
-							return (
-								<>
-									<Card key={index} cardData={group} userId={userId} />
-								</>
-							);
+							return <Card key={index} cardData={group} userId={userId} />;
 						})}
 					</div>
 				</div>
@@ -34,7 +30,7 @@ const Card = ({ cardData, userId }) => {
 		console.log(user);
 	}
 
-	console.log(userAlreadyJoined, cardData.buddies);
+	// console.log(userAlreadyJoined, cardData.buddies);
 	return (
 		<div
 			className="card px-2 shadow-sm"
@@ -53,7 +49,7 @@ const Card = ({ cardData, userId }) => {
 						</span>
 					</h6>{" "}
 					<div className="row col-sm m-0">
-						<h6 className="small col-lg-auto col-12 bg-body-secondary align-content-center px-3 rounded-1 border ">
+						<h6 className="small col-lg-auto col-12 bg-body-secondary align-content-center px-3 py-2 rounded-1 border ">
 							Ends {formatAMPM(new Date(cardData.end)).toString()}
 						</h6>
 						<h6 className=" col-auto py-2 small text-secondary ">
@@ -64,12 +60,18 @@ const Card = ({ cardData, userId }) => {
 
 				<div className="col-12 col-md-auto my-auto">
 					{!userAlreadyJoined ? (
-						<button className="btn-sm btn small  btn-outline-primary ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
+						<button
+							onClick={() => handleJoin(cardData.id)}
+							className="btn-sm btn small btn-width  btn-outline-primary ms-0 p-2 py-2 px-4 mx-2 me-4 fw-medium "
+						>
 							{"Join This Group " + cardData.buddies.length}/
 							{cardData.max_buddies}
 						</button>
 					) : (
-						<button className="btn btn-sm small  btn-outline-danger ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
+						<button
+							onClick={() => handleLeave(cardData.id)}
+							className="btn btn-sm small btn-width  btn-outline-danger ms-0 p-2 px-4 mx-2 me-4 fw-medium "
+						>
 							{"Leave Group " + cardData.buddies.length}/{cardData.max_buddies}
 						</button>
 					)}
@@ -81,6 +83,32 @@ const Card = ({ cardData, userId }) => {
 		</div>
 	);
 };
+
+function handleLeave(groupID) {
+	fetch("/api/leave", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ group: groupID })
+	}).then((data) => {
+		console.log(groupID);
+		console.log(data);
+	});
+}
+
+function handleJoin(groupID) {
+	fetch("/api/join", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ group: groupID })
+	}).then((data) => {
+		console.log(groupID);
+		console.log(data);
+	});
+}
 
 function formatAMPM(date) {
 	var hours = date.getHours();

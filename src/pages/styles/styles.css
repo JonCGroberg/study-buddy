@@ -22,3 +22,7 @@
 .card{
 	border-radius: 4px !important;
 }
+
+.btn-width{
+	width: 200px;
+}

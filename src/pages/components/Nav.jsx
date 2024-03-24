@@ -21,7 +21,7 @@ const Nav = ({ title = "", bookable = true }) => {
 				</button>
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav mb-2  mb-lg-0"></ul>
-					<form className="d-flex w-75 text-center  px-5 mx-5 " role="search">
+					<form className="d-flex flex-grow-1 text-center  px-5 mx-5 " role="search">
 						<h6 className="text-center w-100 fw-bold">
 							{title}
 						</h6>
