@@ -4,7 +4,7 @@ const Search = ({ courses = [] }) => {
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
 	let [search, setSearch] = useState([]);
-	let [dropdown, setDropdown] = useState(true);
+	let [dropdown, setDropdown] = useState(!courses ? false : true);
 	let [selected, setSelected] = useState(courses);
 	let [selection, setSelection] = useState();
 
@@ -56,17 +56,21 @@ const Search = ({ courses = [] }) => {
 						/>
 						{dropdown ? (
 							<select
-								// value={selected}
+								defaultValue={[]}
 								onChange={(e) => {
+									if (!e.target.value) return;
+									if (selected.includes(e.target.value)) return;
+
 									const newSelected = [...selected, e.target.value];
 									window.location.replace("/search/" + newSelected.join("&"));
 									setSelected(newSelected);
 								}}
 								className=" form-select"
 							>
+								<option selected="selected"> Select Class</option>
 								{searchResults.map((option, index) => (
 									<option key={index} value={option.code}>
-										{option.code}
+										{option.code + " -  " + option.name}
 									</option>
 								))}
 							</select>
@@ -76,7 +80,7 @@ const Search = ({ courses = [] }) => {
 					</div>
 				</div>
 				<div className="col">
-					<div className=" align-content-center pt-4 px-2">
+					<div className=" align-content-center pt-4">
 						{selected.map((code, index) => (
 							<button
 								key={index}
@@ -85,7 +89,7 @@ const Search = ({ courses = [] }) => {
 									setSelected(filtered);
 									window.location.replace("/search/" + filtered.join("&"));
 								}}
-								className="btn btn-sm btn-light col mx-1 ps-2 fw-light shadow-sm  "
+								className="btn btn-sm btn-light col mx-1 ps-3 fw-light shadow-sm  "
 								style={{ border: "1px solid " + getCourseColor(code) }}
 							>
 								{code}
