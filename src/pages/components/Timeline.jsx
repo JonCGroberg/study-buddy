@@ -47,7 +47,9 @@ const Card = ({ cardData, userId }) => {
 					<h6 className="col py-1">
 						<span>
 							{cardData.course}
-							{cardData.name ? " - " + cardData.name : ""}
+                            {" "} 
+                            {cardData.course_title} 
+                            {cardData.name ? " - " + cardData.name : ""}
 						</span>
 					</h6>
 					<div className="row col-sm m-0">
