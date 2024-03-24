@@ -57,7 +57,6 @@ Response: [ {
     "start": *start_time*,
     "end": "*end_time*",
     "location": ?,
-    "owner": [user]
     "buddies": [...users],
     "max_buddies": 8,
 }, ... ]
