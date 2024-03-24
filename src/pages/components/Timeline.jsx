@@ -26,6 +26,7 @@ const Timeline = ({ studyGroups, userId }) => {
 
 const Card = ({ cardData, userId }) => {
 	let userAlreadyJoined = false
+    const outlineColor = getCourseColor(cardData.course)
 
     for(const user of cardData.buddies){
         userAlreadyJoined = user.id  == userId ? true : userAlreadyJoined
@@ -34,12 +35,15 @@ const Card = ({ cardData, userId }) => {
 
     console.log(userAlreadyJoined,cardData.buddies)
 	return (
-		<div className="card p-2">
+		<div className="card p-2" style={{
+            border: "0.1em solid " + outlineColor,
+            borderLeft: "1em solid " + outlineColor
+        }}>
 			<div className="card-body row">
 				<div className="col">
 					{" "}
 					<h6 className="col py-1">
-						<span style={{ color: getCourseColor(cardData.course) }}>
+						<span>
 							{cardData.course}
 							{cardData.name ? " - " + cardData.name : ""}
 						</span>
