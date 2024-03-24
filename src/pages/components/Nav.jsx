@@ -2,7 +2,7 @@ import "../styles/styles.css"
 
 const Nav = ({ title = "", bookable = true }) => {
 	return (
-		<nav className="navbar navbar-expand-lg bg-white shadow-sm border p-0 m-0">
+		<nav className="navbar navbar-expand-lg bg-white shadow-sm border">
 			<div className="container-fluid px-3">
 				<a className="navbar-brand" href="/">
 					<img src="/image.png"></img>
@@ -26,8 +26,8 @@ const Nav = ({ title = "", bookable = true }) => {
 							{title}
 						</h6>
 					</div>
-                    { bookable && (<a href="/book" className="btn btn-primary mx-2"> New Study Session</a>) }
-                    <a href="/api/auth/signout" className="btn btn-outline-secondary  mx-2">Signout</a>
+                    { bookable ? <a href="/book" className="btn btn-primary me-0"> New Study Session</a>:<div className="px-5"></div>}
+                    <a href="/api/auth/signout" className="btn btn-outline-secondary  ms-2">Signout</a>
 				</div>
 			</div>
 		</nav>
