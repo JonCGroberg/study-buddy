@@ -10,9 +10,6 @@ export const POST: APIRoute = async ({ cookies, request, redirect }) => {
     if(cookies.has("session"))
         user = await auth.verifySessionCookie(cookies.get("session").value);
     if(!user) return new Response(null, { status: 401 });
-
-    const booking = body as StudyBooking;
-    console.log(booking);
-    await serverStudyBook(user.uid, booking);
+    await serverStudyBook(user.uid, body as StudyBooking);
     return new Response(null, { status: 200 });
 };

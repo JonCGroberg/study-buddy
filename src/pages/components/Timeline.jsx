@@ -1,9 +1,14 @@
 import { useState } from "react";
 import "../styles/styles.css";
 const Timeline = ({ studyGroups, userId }) => {
-
-	console.log(userId);
-	return (
+	return studyGroups.length == 0 ? (
+        <div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 text-center ">
+            <div class="col-auto text-center w-100">
+                <p>No Sessions Found</p>
+                <a className="btn btn-primary" href="/book">Book one now!</a>
+            </div>
+        </div>
+    ) : (
 		<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 ">
 			{studyGroups.map((sameHourGroups, index) => (
 				<div key={index} className="">
@@ -49,7 +54,7 @@ const Card = ({ cardData, userId }) => {
 							{cardData.course}
                             {" "}
                             {cardData.course_title}
-                            {cardData.name ? " - " + cardData.name : ""}
+                            {cardData.name != "" ? " - " + cardData.name : ""}
 						</span>
 					</h6>
 					<div className="row col-sm m-0">
