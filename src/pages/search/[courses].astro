@@ -32,7 +32,7 @@ const sortedChunks = [...map.entries()].sort(
 ---
 
 <Layout {title}>
-	<div class="bg-body-secondary pb-5">
+	<div class="bg-body-secondary pb-5" style="min-height: 100vh;">
 		<Nav title={title} />
 		<main class="">
 			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />

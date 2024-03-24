@@ -1,31 +1,46 @@
-const Search = () => {
-	return (
-		<>
-			<div class="container mt-5">
-                <div class="">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder=""
-                    />
-                </div>
+import { useEffect, useState } from "react";
 
-				<select
-                    size={5}
-					class=" form-select "
-					multiple
-				>
-					<option value="1">COP1200</option>
-					<option value="2">MAC2000</option>
-					<option value="3">COP1100</option>
-					<option value="4">COP1000</option>
-                    <option value="5">COP1400</option>
-					<option value="6">MAC2300</option>
-					<option value="7">COP3200</option>
-					<option value="8">COP4200</option>
-				</select>
+const Search = () => {
+	let [options, setOptions] = useState([]);
+	let [searchResults, setSearchResults] = useState([]);
+	let [search, setSearch] = useState([]);
+
+	useEffect(() => {
+		fetch("/courses.json", { method: "GET" })
+			.then((res) => res.json())
+			.then((data) => {
+				setOptions(data);
+			});
+		// async function filterCourses(code) {
+		// 	return courses.filter((course) => course.code.includes(code));
+		// }
+	}, []);
+
+	// setSearchResults([]);
+
+	return (
+		<div className="container mt-5">
+			<div className="">
+				<input
+					type="text"
+					className="form-control"
+					value={search}
+					placeholder="Start Searching"
+					onChange={(e) => {
+						setSearch(e.target.value);
+                        setSearchResults(options.filter(option=>option.code.includes(code)))
+					}}
+				/>
 			</div>
-		</>
+
+			<select size={5} className=" form-select " multiple>
+				{searchResults.map((option, index) => (
+					<option key={index} value={index}>
+						{option.code}
+					</option>
+				))}
+			</select>
+		</div>
 	);
 };
 

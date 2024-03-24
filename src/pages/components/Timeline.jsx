@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/styles.css";
 const Timeline = ({ studyGroups, userId }) => {
-	[]
+
 	console.log(userId);
 	return (
 		<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 ">
