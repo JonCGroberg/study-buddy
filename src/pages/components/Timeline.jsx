@@ -120,17 +120,8 @@ function formatAMPM(date) {
 	var hours = date.getHours();
 	var minutes = date.getMinutes();
 	var ampm = hours >= 12 ? "PM" : "AM";
-	const weekDays = [
-		"Sunday",
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thursday",
-		"Friday",
-		"Saturday"
-	];
-	const day = weekDays[date.getDay()];
-	const today = weekDays[new Date(Date.now()).getDay()];
+	const day = date.toLocaleString('en-us', {  weekday: 'long' });
+	const today = new Date(Date.now()).toLocaleString('en-us', {  weekday: 'long' });
 
 	hours = hours % 12;
 	hours = hours ? hours : 12; // the hour '0' should be '12'
