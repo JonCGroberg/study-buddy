@@ -57,7 +57,9 @@ const Search = ({ courses = [] }) => {
 						{dropdown ? (
 							<select
 								// value={selected}
-								onChange={(e) => setSelected([...selected, e.target.value])}
+								onChange={(e) => {
+                                    window.location.replace("/")
+                                    setSelected([...selected, e.target.value])}}
 								className=" form-select"
 							>
 								{searchResults.map((option, index) => (
