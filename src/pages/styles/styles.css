@@ -4,3 +4,13 @@
 .btn-primary {
 	background: #0317ab !important;
 }
+.btn-outline-primary {
+	border-color: #0317ab !important;
+    color: #0317ab !important;;
+}
+
+.btn-outline-primary:hover {
+	border-color: #0317ab !important;
+    background: #0317ab !important;
+    color: white !important;
+}
