@@ -1,22 +1,25 @@
 const Timeline = ({ studyGroups }) => {
 	console.log(studyGroups);
 	return (
-		<div className="py-5 px px-md-3 px-sm-5 row gap-3 mx-0 mx-md-3 mx-sm-5">
-			{studyGroups.map((timeSet) => {
-				return (
-					<div className="">
-						<h6 className="w-100 border-1 border-bottom border-dark-subtle pb-2 mt-0 mb-4">
-							{formatAMPM(new Date(timeSet[0] * 1000)).toString()}
-						</h6>
-						<div className="ps-5 ms-5 row gap-3">
-							{timeSet[1].map((group, index) => {
-								console.log(group);
-								return <Card key={index} cardData={group} />;
-							})}
-						</div>
+		<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 ">
+			{studyGroups.map((sameHourGroups) => (
+				<div className="">
+					<h6 className="w-100 border-1 border-bottom border-dark-subtle pb-2 mt-0 mb-4">
+						{formatAMPM(new Date(sameHourGroups[0] * 1000)).toString()}
+					</h6>
+					<div className="px-3 ps-sm-3 ps-lg-5 ms-sm-3 ms-lg-5 row gap-3">
+						{sameHourGroups[1].map((group, index) => {
+							console.log(group);
+
+							return (
+								<>
+									<Card key={index} cardData={group} />
+								</>
+							);
+						})}
 					</div>
-				);
-			})}
+				</div>
+			))}
 		</div>
 	);
 };
