@@ -9,7 +9,7 @@ const auth = getAuth(app);
 let user: DecodedIdToken;
 if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if (!user) return Astro.redirect("/signin");
+if (!user) return Astro.redirect("/welcome");
 
 const title = "Book a Study Session";
 ---

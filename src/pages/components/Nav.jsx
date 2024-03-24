@@ -6,7 +6,7 @@ const Nav = ({ title = "", bookable = true }) => {
 			<div className="container-fluid px-3">
 				<a className="navbar-brand" href="/">
 					<img src="/image.png"></img>
-					<span className=" px-3 text-primary  fw-bold    ">Study Buddy</span>
+					<span className=" px-3 text-primary  fw-bold    ">StudyBuddies</span>
 				</a>
 				<button
 					className="navbar-toggler"

@@ -11,7 +11,7 @@ const auth = getAuth(app);
 let user: DecodedIdToken;
 if (Astro.cookies.has("session"))
 	user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
-if (!user) return Astro.redirect("/signin");
+if (!user) return Astro.redirect("/welcome");
 
 const map = new Map();
 const groups = await serverUserStudySearch(user.uid);
@@ -39,7 +39,7 @@ const title = user.name + "'s Study Groups";
 			client:load
 		/>
 
-		<main class="">
+		<main>
 			<Timeline client:load studyGroups={sortedChunks} userId={user.uid} />
 		</main>
 	</div>
