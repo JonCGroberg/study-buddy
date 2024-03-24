@@ -19,8 +19,6 @@ const Timeline = ({ studyGroups, userId }) => {
 					</h6>
 					<div className="small px-3 ps-sm-3 ps-lg-4 ms-sm-3 ms-lg-4 row gap-3">
 						{sameHourGroups[1].map((group, index) => {
-							// console.log(group);
-
 							return <Card key={index} cardData={group} userId={userId} />;
 						})}
 					</div>
@@ -48,6 +46,26 @@ const Card = ({ cardData, userId }) => {
 				borderLeft: "1em solid " + outlineColor
 			}}
 		>
+            <div class="modal fade" id={"modal-" + cardData.id} tabindex="-1" aria-labelledby={"modal-label-" + cardData.id} aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id={"modal-label-" + cardData.id}>{cardData.course + " - " + cardData.course_title} </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            { cardData.name && (<p><strong>Name:</strong> {cardData.name}</p>) }
+                            { cardData.description && (<p><strong>Description:</strong><br/>{cardData.description}</p>) }
+                            <p><strong>Location:</strong> {cardData.location}</p>
+                            <p><strong>Start:</strong> {(new Date(cardData.start)).toLocaleString()}</p>
+                            <p><strong>End:</strong> {(new Date(cardData.end)).toLocaleString()}</p>
+                            <p><strong>Group Size:</strong> {cardData.max_buddies}</p>
+                            <p><strong>Group:</strong> {cardData.buddies.map((buddy) => buddy.name).join(", ")}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 			<div className="card-body row py-3">
 				<div className="col">
 
@@ -86,7 +104,7 @@ const Card = ({ cardData, userId }) => {
 							{"Leave Group (" + cardData.buddies.length}/{cardData.max_buddies < 1 ? "∞" : cardData.max_buddies + ")" }
 						</button>
 					)}
-					<button className="btn btn-sm p-2 text-primary fw-medium " onClick={() => handleDetails(cardData)}>
+					<button className="btn btn-sm p-2 text-primary fw-medium " data-bs-toggle="modal" data-bs-target={"#modal-" + cardData.id}>
 						More Details
 					</button>
 				</div>
