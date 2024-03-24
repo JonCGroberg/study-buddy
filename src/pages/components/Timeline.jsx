@@ -43,7 +43,7 @@ const Card = ({ cardData, userId }) => {
 				borderLeft: "1em solid " + outlineColor
 			}}
 		>
-			<div className="card-body row">
+			<div className="card-body row py-3">
 				<div className="col">
 					{" "}
 					<h6 className="col py-1">
@@ -64,12 +64,12 @@ const Card = ({ cardData, userId }) => {
 
 				<div className="col-12 col-md-auto my-auto">
 					{!userAlreadyJoined ? (
-						<button className="btn-sm btn btn-outline-primary ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
+						<button className="btn-sm btn small  btn-outline-primary ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
 							{"Join This Group " + cardData.buddies.length}/
 							{cardData.max_buddies}
 						</button>
 					) : (
-						<button className="btn btn-sm btn-outline-danger ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
+						<button className="btn btn-sm small  btn-outline-danger ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
 							{"Leave Group " + cardData.buddies.length}/{cardData.max_buddies}
 						</button>
 					)}
