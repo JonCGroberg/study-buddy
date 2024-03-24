@@ -11,8 +11,6 @@ const Search = ({ courses = []}) => {
 	let [selected, setSelected] = useState(courses);
 	let [selection, setSelection] = useState();
 
-	console.log(courses);
-
 	useEffect(() => {
 		fetch("/courses.json", { method: "GET" })
 			.then((res) => res.json())

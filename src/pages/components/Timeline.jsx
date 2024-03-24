@@ -34,7 +34,6 @@ const Card = ({ cardData, userId }) => {
 
 	for (const user of cardData.buddies) {
 		userAlreadyJoined = user.id == userId ? true : userAlreadyJoined;
-		console.log(user);
 	}
 
 	// console.log(userAlreadyJoined, cardData.buddies);
@@ -121,8 +120,6 @@ function handleLeave(groupID) {
 		},
 		body: JSON.stringify({ group: groupID })
 	}).then((data) => {
-		console.log(groupID);
-		console.log(data);
 		window.location.reload()
 	});
 }
@@ -135,15 +132,8 @@ function handleJoin(groupID) {
 		},
 		body: JSON.stringify({ group: groupID })
 	}).then((data) => {
-		console.log(groupID);
-		console.log(data);
 		window.location.reload()
 	});
-}
-
-function handleDetails(cardData) {
-    // TODO: show more details
-    console.log(cardData);
 }
 
 function formatAMPM(date) {

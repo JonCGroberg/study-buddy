@@ -306,8 +306,6 @@ function handleSubmit(
 		max_buddies: selectedGroupSize
 	};
 
-	console.log(studyGroup);
-
 	fetch("/api/book", {
 		method: "POST",
 		headers: {
