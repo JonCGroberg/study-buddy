@@ -1,9 +1,10 @@
+import "../styles/styles.css";
 const Timeline = ({ studyGroups, userId }) => {
 	console.log(userId);
 	return (
 		<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5 ">
-			{studyGroups.map((sameHourGroups) => (
-				<div className="">
+			{studyGroups.map((sameHourGroups, index) => (
+				<div key={index} className="">
 					<h6 className="small w-100 border-1 border-bottom border-dark-subtle pb-2 mt-0 mb-4">
 						{formatAMPM(new Date(sameHourGroups[0] * 1000)).toString()}
 					</h6>
@@ -25,20 +26,23 @@ const Timeline = ({ studyGroups, userId }) => {
 };
 
 const Card = ({ cardData, userId }) => {
-	let userAlreadyJoined = false
-    const outlineColor = getCourseColor(cardData.course)
+	let userAlreadyJoined = false;
+	const outlineColor = getCourseColor(cardData.course);
 
-    for(const user of cardData.buddies){
-        userAlreadyJoined = user.id  == userId ? true : userAlreadyJoined
-        console.log(user)
-    }
+	for (const user of cardData.buddies) {
+		userAlreadyJoined = user.id == userId ? true : userAlreadyJoined;
+		console.log(user);
+	}
 
-    console.log(userAlreadyJoined,cardData.buddies)
+	console.log(userAlreadyJoined, cardData.buddies);
 	return (
-		<div className="card p-2" style={{
-            border: "0.1em solid " + outlineColor,
-            borderLeft: "1em solid " + outlineColor
-        }}>
+		<div
+			className="card px-2 shadow-sm"
+			style={{
+				border: "0.1em solid " + outlineColor,
+				borderLeft: "1em solid " + outlineColor
+			}}
+		>
 			<div className="card-body row">
 				<div className="col">
 					{" "}
@@ -49,7 +53,7 @@ const Card = ({ cardData, userId }) => {
 						</span>
 					</h6>{" "}
 					<div className="row col-sm m-0">
-						<h6 className="small col-lg-auto col-12 bg-secondary-subtle rounded-2 py-2 ">
+						<h6 className="small col-lg-auto col-12 bg-body-secondary align-content-center px-3 rounded-1 border ">
 							Ends {formatAMPM(new Date(cardData.end)).toString()}
 						</h6>
 						<h6 className=" col-auto py-2 small text-secondary ">
@@ -102,25 +106,31 @@ function formatAMPM(date) {
 }
 
 function stringToHash(string) {
-    let hash = 0;
-    if(string.length == 0) return hash;
+	let hash = 0;
+	if (string.length == 0) return hash;
 
-    for(let i = 0; i < string.length; i++) {
-        let char = string.charCodeAt(i);
-        hash = ((hash << 6) - hash) + char;
-        hash = hash & hash;
-    }
-    return hash;
+	for (let i = 0; i < string.length; i++) {
+		let char = string.charCodeAt(i);
+		hash = (hash << 6) - hash + char;
+		hash = hash & hash;
+	}
+	return hash;
 }
 
 function getCourseColor(course) {
-    const colors = [
-        "#FF2E2E", "#FFA14A ", "#F5DF14", 
-        "#60DD5E", "#3ABE6F", "#39BCBC",
-        "#3F7BC2", "#5E2A92", "#BC64C4",
-        "#ED6890"
-    ];
-    return colors[stringToHash(course) % colors.length];
+	const colors = [
+		"#FF2E2E",
+		"#FFA14A ",
+		"#F5DF14",
+		"#60DD5E",
+		"#3ABE6F",
+		"#39BCBC",
+		"#3F7BC2",
+		"#5E2A92",
+		"#BC64C4",
+		"#ED6890"
+	];
+	return colors[stringToHash(course) % colors.length];
 }
 
 export default Timeline;

@@ -5,7 +5,7 @@ const Nav = ({ title = "" }) => {
 		<nav className="navbar navbar-expand-lg bg-white shadow-sm border">
 			<div className="container-fluid px-5">
 				<a className="navbar-brand" href="/">
-					<img src="/public/image.png"></img>
+					<img src="/image.png"></img>
 					<span className=" px-3 text-primary  fw-bold    ">Study Buddy</span>
 				</a>
 				<button

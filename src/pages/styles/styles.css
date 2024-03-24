@@ -2,15 +2,23 @@
 	color: #0317ab !important;
 }
 .btn-primary {
-	background: #0317ab !important;
+	background: hsl(233, 97%, 34%) !important;
 }
 .btn-outline-primary {
 	border-color: #0317ab !important;
-    color: #0317ab !important;;
+	color: #0317ab !important;
 }
 
 .btn-outline-primary:hover {
 	border-color: #0317ab !important;
-    background: #0317ab !important;
-    color: white !important;
+	background: #0317ab !important;
+	color: white !important;
+}
+
+.btn {
+	border-radius: 4px !important;
+}
+
+.card{
+	border-radius: 4px !important;
 }
