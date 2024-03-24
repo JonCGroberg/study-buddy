@@ -1,33 +1,31 @@
-# Astro Starter Kit: Minimal
 
-```sh
-npm create astro@latest -- --template minimal
-```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+#  Study Buddies
+## Inspiration
+The inspiration behind Study Buddies stemmed from the realization that finding study groups and like-minded individuals to collaborate with can greatly enhance the learning experience. As students ourselves, we recognized the importance of peer support and the positive impact it can have on academic success. We wanted to create a platform that would make it easier for students at the University of Florida (UF) to connect with study groups and foster a collaborative learning environment.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## What it does
+Study Buddies is a platform designed to help students at UF find study groups tailored to their needs. It provides a user-friendly interface where students can create study group profiles, search for existing study groups, and connect with other students who share similar academic interests. Additionally, Study Buddies offers features such as group messaging, file sharing, and event scheduling to facilitate effective communication and coordination within study groups.
 
-## 🚀 Project Structure
+## How we built it
+Study Buddies was built using a combination of modern web development technologies. The frontend of the platform was developed using Astro, React, Figma, and , providing an intuitive and responsive user interface. For the backend, we utilized a Astro and Firebase, which allowed us to handle user authentication, database management, and efficient data retrieval. 
 
-Inside of your Astro project, you'll see the following folders and files:
+## Challenges we ran into
+Throughout the development process, we encountered several challenges. One of the main hurdles was designing an intuitive user interface that would cater to the diverse needs of UF students. We conducted extensive user research and iterative testing to ensure that the platform was user-friendly and provided a seamless experience. 
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Accomplishments that we're proud of
+We are proud to have created Study Buddies, a platform that addresses the critical need for study group formation at UF. We successfully implemented a range of features that facilitate effective collaboration among students, streamlining the process of finding and connecting with study groups. Our user-centric design approach and extensive testing resulted in an intuitive and accessible platform that enhances the learning experience for UF students.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## What we learned
+Throughout the development of Study Buddies, we gained valuable insights into the complexities of building a web application that caters to a specific user base. We honed our skills in frontend and backend development, database management, and API integration. We also learned the importance of incorporating user feedback and conducting usability testing to create a product that truly meets the needs and expectations of its users.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## What's next for Study Buddies
+Looking ahead, we have exciting plans to further enhance and expand Study Buddies. Some of the future developments include:
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Implementing advanced search filters to help students find study groups based on specific criteria such as course, location, or study preferences.
+2. Developing a mobile application for Study Buddies to provide students with on-the-go access and convenience.
+
+
 
 ## 🧞 Commands
 
@@ -42,11 +40,6 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## StudyBuddies
 
 POST /schedule
 Request: { "course": "COP3503C", "period": "day" }
