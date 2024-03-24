@@ -15,7 +15,6 @@ type StudyGroup = {
     start: number,
     end: number,
     location: string,
-    owner: User,
     buddies: User[],
     max_buddies: number
 };
@@ -29,17 +28,13 @@ async function serverStudySearch(courses: string[]): Promise<StudyGroup[]> {
 }
 
 async function serverUserStudySearch(user: string): Promise<StudyGroup[]> {
-    const owned = await db.collection("groups")
-                             .where("owner", "==", user)
-                             .where("end", ">", Timestamp.now()).get();
-    const joined = await db.collection("groups")
+    const groups = await db.collection("groups")
                              .where("buddies", "array-contains-any", [user]).get();
-    return Promise.all([...owned.docs, ...joined.docs].map(
+    return Promise.all(groups.docs.map(
         async (doc: any): Promise<StudyGroup> => await createStudyGroupType(doc.data())));
 }
 
 async function createStudyGroupType(doc: any): Promise<StudyGroup> {
-    const owner = await getAuth(app).getUser(doc.owner);
     const buddies = await Promise.all(doc.buddies.map(async (buddy: string) => {
         const user = await getAuth(app).getUser(buddy);
         return !user ? unknownUser : { id: user.uid, name: user.displayName };
@@ -51,14 +46,12 @@ async function createStudyGroupType(doc: any): Promise<StudyGroup> {
         start: doc.start.toMillis(),
         end: doc.end.toMillis(),
         location: doc.location,
-        owner: { id: owner.uid, name: owner.displayName },
         buddies: buddies,
         max_buddies: doc.max_buddies
     }
 }
 
 type StudyBooking = {
-    owner: string,
     course: string,
     name?: string,
     description?: string,
@@ -70,7 +63,6 @@ type StudyBooking = {
 
 async function serverStudyBook(booking: StudyBooking): Promise<WriteResult> {
     return await db.collection("groups").doc().set({
-        owner: booking.owner,
         course: booking.course,
         name: booking.name,
         description: booking.description,
