@@ -9,6 +9,7 @@ type User = {
 };
 
 type StudyGroup = {
+    id: string,
     course: string,
     name?: string,
     description?: string,
@@ -24,30 +25,33 @@ async function serverStudySearch(courses: string[]): Promise<StudyGroup[]> {
                              .where("course", "in", courses)
                              .where("end", ">", Timestamp.now()).get();
     return Promise.all(snapshot.docs.map(async (doc: any): Promise<StudyGroup> => 
-                await createStudyGroupType(doc.data())));
+                await createStudyGroupType(doc, doc.data())));
 }
 
 async function serverUserStudySearch(user: string): Promise<StudyGroup[]> {
     const groups = await db.collection("groups")
+                             .where("end", ">", Timestamp.now())
                              .where("buddies", "array-contains-any", [user]).get();
     return Promise.all(groups.docs.map(
-        async (doc: any): Promise<StudyGroup> => await createStudyGroupType(doc.data())));
+        async (doc: any): Promise<StudyGroup> => await createStudyGroupType(doc, doc.data())));
 }
 
-async function createStudyGroupType(doc: any): Promise<StudyGroup> {
-    const buddies = await Promise.all(doc.buddies.map(async (buddy: string) => {
+async function createStudyGroupType(doc: any, data: any): Promise<StudyGroup> {
+    const buddies = await Promise.all(data.buddies.map(async (buddy: string) => {
         const user = await getAuth(app).getUser(buddy);
         return !user ? unknownUser : { id: user.uid, name: user.displayName };
     }));
+    console.log(data.__name__);
     return {
-        course: doc.course,
-        name: doc.name,
-        description: doc.description,
-        start: doc.start.toMillis(),
-        end: doc.end.toMillis(),
-        location: doc.location,
+        id: data.__name__,
+        course: data.course,
+        name: data.name,
+        description: data.description,
+        start: data.start.toMillis(),
+        end: data.end.toMillis(),
+        location: data.location,
         buddies: buddies,
-        max_buddies: doc.max_buddies
+        max_buddies: data.max_buddies
     }
 }
 
