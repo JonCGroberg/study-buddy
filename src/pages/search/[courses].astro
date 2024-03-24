@@ -1,0 +1,31 @@
+---
+import { serverStudySearch } from "../../studybuddy";
+import Layout from "../../layouts/Layout.astro";
+import Timeline from "../components/Timeline";
+import Nav from "../components/Nav";
+
+const { courses } = Astro.params;
+
+const map = new Map();
+const groups = await serverStudySearch(courses.split("&"));
+groups.forEach(async (studyGroup) => {
+	const truncatedToHours =
+		studyGroup.start / 1000 - ((studyGroup.start / 1000) % 3600);
+	if(map.has(truncatedToHours))
+		map.set(truncatedToHours, [...map.get(truncatedToHours), studyGroup]);
+	else map.set(truncatedToHours, [studyGroup]);
+});
+
+// sort the chunks
+const sortedChunks = [...map.entries()].sort(
+	(a, b) => new Date(b[0]).getDate() - new Date(a[0]).getDate()
+);
+---
+
+<Layout>
+	<Nav />
+
+	<main>
+		<Timeline client:load studyGroups={sortedChunks} />
+	</main>
+</Layout>

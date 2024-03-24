@@ -1,21 +1,15 @@
 ---
 import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
+import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
 import Timeline from "./components/Timeline";
 import Nav from "./components/Nav";
 
 /* Check if the user is authenticated */
 const auth = getAuth(app);
-let authenticated = false;
-if (Astro.cookies.has("session")) {
-	const sessionCookie = Astro.cookies.get("session").value;
-	const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-	if (decodedCookie) {
-		authenticated = true;
-		Astro.redirect("/test");
-	}
-}
+let user: DecodedIdToken;
+if(Astro.cookies.has("session"))
+    user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
 
 const data = await fetch("http://localhost:4321/api/search", {
 	method: "POST",
