@@ -1,6 +1,7 @@
 ---
 import { app } from "../firebase/server";
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
+import { serverUserStudySearch } from "../studybuddy";
 import Layout from "../layouts/Layout.astro";
 import Timeline from "./components/Timeline";
 import Nav from "./components/Nav";
@@ -10,26 +11,19 @@ const auth = getAuth(app);
 let user: DecodedIdToken;
 if(Astro.cookies.has("session"))
     user = await auth.verifySessionCookie(Astro.cookies.get("session").value);
+if(!user) return Astro.redirect("/signin");
 
-const data = await fetch("http://localhost:4321/api/search", {
-	method: "POST",
-	headers: {
-		"Content-Type": "application/json"
-	},
-	body: JSON.stringify({ course: "COP3503C" })
-}).then((data) => data.json());
-
-// chunk together by time
 const map = new Map();
-data.forEach((studyGroup) => {
+const groups = await serverUserStudySearch(user.uid);
+groups.forEach(async (studyGroup) => {
 	const truncatedToHours =
 		studyGroup.start / 1000 - ((studyGroup.start / 1000) % 3600);
-	if (map.has(truncatedToHours))
+	if(map.has(truncatedToHours))
 		map.set(truncatedToHours, [...map.get(truncatedToHours), studyGroup]);
 	else map.set(truncatedToHours, [studyGroup]);
 });
 
-// sort the chunks0
+// sort the chunks
 const sortedChunks = [...map.entries()].sort(
 	(a, b) => new Date(b[0]).getDate() - new Date(a[0]).getDate()
 );
@@ -39,6 +33,7 @@ const sortedChunks = [...map.entries()].sort(
 	<Nav />
 
 	<main>
+        <p>Your Study Groups</p>
 		<Timeline client:load studyGroups={sortedChunks} />
 	</main>
 </Layout>
