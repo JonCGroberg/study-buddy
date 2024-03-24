@@ -1,6 +1,6 @@
 import "../styles/styles.css"
 
-const Nav = ({ title = "" }) => {
+const Nav = ({ title = "", bookable = true }) => {
 	return (
 		<nav className="navbar navbar-expand-lg bg-white shadow-sm border">
 			<div className="container-fluid px-5">
@@ -35,7 +35,7 @@ const Nav = ({ title = "" }) => {
 							Search
 						</button> */}
 					</form>
-					<button className="btn btn-primary "> New Study Session</button>
+                    { bookable && (<a href="/book" className="btn btn-primary"> New Study Session</a>) }
 				</div>
 			</div>
 		</nav>
