@@ -39,7 +39,7 @@ const Card = ({ cardData, userId }) => {
 				<div className="col">
 					{" "}
 					<h6 className="col py-1">
-						<span className="">
+						<span style={{ color: getCourseColor(cardData.course) }}>
 							{cardData.course}
 							{cardData.name ? " - " + cardData.name : ""}
 						</span>
@@ -95,6 +95,28 @@ function formatAMPM(date) {
 	minutes = minutes < 10 ? "0" + minutes : minutes;
 
 	return `${hours}:${minutes} ${ampm} ${day == today ? "" : day}`;
+}
+
+function stringToHash(string) {
+    let hash = 0;
+    if(string.length == 0) return hash;
+
+    for(let i = 0; i < string.length; i++) {
+        let char = string.charCodeAt(i);
+        hash = ((hash << 6) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash;
+}
+
+function getCourseColor(course) {
+    const colors = [
+        "#FF2E2E", "#FFA14A ", "#F5DF14", 
+        "#60DD5E", "#3ABE6F", "#39BCBC",
+        "#3F7BC2", "#5E2A92", "#BC64C4",
+        "#ED6890"
+    ];
+    return colors[stringToHash(course) % colors.length];
 }
 
 export default Timeline;
