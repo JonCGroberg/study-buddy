@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 const Search = ({ courses = [] }) => {
-	// const lastSearch =
+	const lastSearch = new URLSearchParams(window.location.search).get(lastSearch) || ""
 
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
-	let [search, setSearch] = useState("lastSearch");
+	let [search, setSearch] = useState(lastSearch);
 	let [dropdown, setDropdown] = useState(!courses ? false : true);
 	let [selected, setSelected] = useState(courses);
 	let [selection, setSelection] = useState();
