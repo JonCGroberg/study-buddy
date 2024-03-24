@@ -1,9 +1,11 @@
 const Nav = () => {
 	return (
 		<nav className="navbar navbar-expand-lg bg-white">
-			<div className="container-fluid">
+			<div className="container-fluid px-5">
+
 				<a className="navbar-brand" href="#">
-					Study Buddy
+                    <img src="/public/image.png"></img>
+					<span className=" px-3 text-primary  fw-bold    ">Study Buddy</span>
 				</a>
 				<button
 					className="navbar-toggler"
@@ -19,7 +21,7 @@ const Nav = () => {
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav mb-2  mb-lg-0"></ul>
 					<form className="d-flex w-75 px-5 mx-5 " role="search">
-						<input
+						{/* <input
 							className="form-control me-2 "
 							type="search"
 							placeholder="Search"
@@ -27,7 +29,7 @@ const Nav = () => {
 						/>
 						<button className="btn btn-outline-dark " type="submit">
 							Search
-						</button>
+						</button> */}
 					</form>
                     <button className="btn btn-primary "> New Study Sessions</button>
 				</div>

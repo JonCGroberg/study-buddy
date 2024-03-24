@@ -25,7 +25,14 @@ const Timeline = ({ studyGroups, userId }) => {
 };
 
 const Card = ({ cardData, userId }) => {
-	const userAlreadyJoined = cardData.buddies.includes(userId);
+	let userAlreadyJoined = false
+
+    for(const user of cardData.buddies){
+        userAlreadyJoined = user.id  == userId ? true : userAlreadyJoined
+        console.log(user)
+    }
+
+    console.log(userAlreadyJoined,cardData.buddies)
 	return (
 		<div className="card p-2">
 			<div className="card-body row">
@@ -48,7 +55,7 @@ const Card = ({ cardData, userId }) => {
 				</div>
 
 				<div className="col-12 col-md-auto my-auto">
-					{userAlreadyJoined ? (
+					{!userAlreadyJoined ? (
 						<button className="btn btn-outline-primary ms-0 p-2 px-3 mx-2 me-4 fw-medium ">
 							{"Join This Group " + cardData.buddies.length}/
 							{cardData.max_buddies}
