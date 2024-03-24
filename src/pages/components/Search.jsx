@@ -7,7 +7,7 @@ const Search = ({ courses = []}) => {
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
 	let [search, setSearch] = useState([]);
-	let [dropdown, setDropdown] = useState(courses.length==0 ? false : true);
+	let [dropdown, setDropdown] = useState(false);
 	let [selected, setSelected] = useState(courses);
 	let [selection, setSelection] = useState();
 
@@ -51,10 +51,10 @@ const Search = ({ courses = []}) => {
 									setDropdown(true);
 									setSearchResults(
 										options
-											.filter((option) =>
-												option.code.includes(e.target.value.toUpperCase())
-											)
-											.slice(0, 15)
+											.filter((option) => {
+                                                const upper = e.target.value.toUpperCase();
+												return (option.code.includes(upper) || option.name.toUpperCase().includes(upper)) && !courses.includes(option.code);
+                                            }).slice(0, 15)
 									);
 								} else {
 									setDropdown(false);
@@ -77,7 +77,7 @@ const Search = ({ courses = []}) => {
 								}}
 								className=" form-select"
 							>
-								<option selected="selected"> Select Class</option>
+								<option selected="selected"> Select Result</option>
 								{searchResults.map((option, index) => (
 									<option key={index} value={option.code}>
 										{option.code + " -  " + option.name}

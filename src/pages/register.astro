@@ -2,34 +2,26 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
-<style>
-    .the-main-font {
-        font-family: "Inter", sans-serif; 
-    }
-  </style>
-
 <Layout title="Register">
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <h1 class="text-center fw-bold the-main-font">Register</h1>
-        <p class="text-center the-main-font">Already have an account? <a href="/signin" class="the-main-font">Sign in</a></p>
+        <h1 class="text-center fw-bold">Register</h1>
+        <p class="text-center">Already have an account? <a href="/signin">Sign in</a></p>
         <form action="/api/auth/register" method="post">
           <div class="mb-3">
-            <label for="name" class="form-label the-main-font">Name</label>
+            <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" required>
           </div>
           <div class="mb-3">
-            <label for="email" class="form-label the-main-font">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required>
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label the-main-font">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
           </div>
-          <button type="submit" class="btn btn-primary the-main-font">Register</button>
+          <button type="submit" class="btn btn-primary">Register</button>
         </form>
       </div>
     </div>
