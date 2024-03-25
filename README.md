@@ -10,7 +10,7 @@
 
 <img width=600 src="./screenshots/SearchPills.png"/>
 
-## Inspiration
+## 💡 Inspiration
 
 The inspiration behind Study Buddies stemmed from the realization that finding study groups and like-minded individuals to collaborate with can greatly enhance the learning experience. As students ourselves, we recognized the importance of peer support and the positive impact it can have on academic success. We wanted to create a platform that would make it easier for students at the University of Florida (UF) to connect with study groups and foster a collaborative learning environment.
 
@@ -20,7 +20,7 @@ Study Buddies is a platform designed to help students at UF find study groups ta
 
 <img width=600 src="./screenshots/Book.png"/>
 
-## How we built it
+## 🏗️ How we built it
 
 Study Buddies was built using a combination of modern web development technologies. The frontend of the platform was developed using Astro, React, Figma, and , providing an intuitive and responsive user interface. For the backend, we utilized a Astro and Firebase, which allowed us to handle user authentication, database management, and efficient data retrieval.
 
@@ -28,11 +28,11 @@ Study Buddies was built using a combination of modern web development technologi
 
 Throughout the development process, we encountered several challenges. One of the main hurdles was designing an intuitive user interface that would cater to the diverse needs of UF students. We conducted extensive user research and iterative testing to ensure that the platform was user-friendly and provided a seamless experience.
 
-## Accomplishments that we're proud of
+## 🏆 Accomplishments that we're proud of
 
 We are proud to have created Study Buddies, a platform that addresses the critical need for study group formation at UF. We successfully implemented a range of features that facilitate effective collaboration among students, streamlining the process of finding and connecting with study groups. Our user-centric design approach and extensive testing resulted in an intuitive and accessible platform that enhances the learning experience for UF students.
 
-## What we learned
+## 🧑‍🎓 What we learned
 
 Throughout the development of Study Buddies, we gained valuable insights into the complexities of building a web application that caters to a specific user base. We honed our skills in frontend and backend development, database management, and API integration. We also learned the importance of incorporating user feedback and conducting usability testing to create a product that truly meets the needs and expectations of its users.
 
@@ -43,9 +43,15 @@ Looking ahead, we have exciting plans to further enhance and expand Study Buddie
 1. Implementing advanced search filters to help students find study groups based on specific criteria such as course, location, or study preferences.
 2. Developing a mobile application for Study Buddies to provide students with on-the-go access and convenience.
 
-## 🧞 Commands
+## 💻 Installing/Usage
 
-All commands are run from the root of the project, from a terminal:
+### Install
+
+```shell
+git clone https://github.com/JonCGroberg/study-buddy
+```
+
+### Build/Run
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
