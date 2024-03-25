@@ -1,9 +1,13 @@
 
 
-#  Study Buddies
+#  Study Buddies [image](/)
 
 > Try it out live! [study-buddy.vercel.app](https://study-buddy-git-main-jongroberg.vercel.app/welcome)
-> 
+
+> Hackathon Submission https://devpost.com/software/study-buddies-brqelk
+
+## Landing Page
+
 ## Inspiration
 The inspiration behind Study Buddies stemmed from the realization that finding study groups and like-minded individuals to collaborate with can greatly enhance the learning experience. As students ourselves, we recognized the importance of peer support and the positive impact it can have on academic success. We wanted to create a platform that would make it easier for students at the University of Florida (UF) to connect with study groups and foster a collaborative learning environment.
 
