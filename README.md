@@ -20,7 +20,7 @@
 
 > **Hackathon Post**: [Devpost](https://devpost.com/software/study-buddies-brqelk)
 
-> **Demo Video**: [Youtube](https://www.youtube.com/watch?v=YaSxxyFTSD8))
+> **Demo Video**: [Youtube](https://www.youtube.com/watch?v=YaSxxyFTSD8)
 
 > **Try it out live!**: [Study-buddy.vercel.app](https://study-buddy-git-main-jongroberg.vercel.app/welcome)
 
