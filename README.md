@@ -1,16 +1,33 @@
-# Study Buddies
-Study Smarter, Together: Join Study Buddies and Ace Your UF Courses!
-> Hackathon Submission: [Devpost](https://devpost.com/software/study-buddies-brqelk)
+[![Contributors][contributors-shield]][contributors-url]
+[![Stargazers][stars-shield]][stars-url]
+[![MIT License][license-shield]][license-url]
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <img src="https://study-buddy-beta-opal.vercel.app/image.png" alt="Logo" width="40" height="40">
+  <h3 align="center">Study Buddies</h3>
+  <p align="center">
+    <p> Study Smarter, Together: Join Study Buddies and Ace Your UF Courses!</p>
+  
+  </p>
+  <br/>
+ 
+</div>
 
 ### Demo
+
+> **Hackathon Post**: [Devpost](https://devpost.com/software/study-buddies-brqelk)
+
+> **Demo Video**: [Youtube](https://www.youtube.com/watch?v=YaSxxyFTSD8))
 
 > **Try it out live!**: [Study-buddy.vercel.app](https://study-buddy-git-main-jongroberg.vercel.app/welcome)
 
 > Test with **login**: `test@gmail.com` and **password**: `password` OR create a new account
 
-#### Demo Video
+<img width=1000 src="./screenshots/SearchPills.png"/>
 
-[![Demonstration](https://img.youtube.com/vi/YaSxxyFTSD8/0.jpg)](https://www.youtube.com/watch?v=YaSxxyFTSD8)
 
 ## 💡 Inspiration
 
@@ -24,7 +41,15 @@ Study Buddies is a platform designed to help students at UF find study groups ta
 
 ## 🏗️ How we built it
 
-Study Buddies was built using a combination of modern web development technologies. The frontend of the platform was developed using Astro, React, Figma, and , providing an intuitive and responsive user interface. For the backend, we utilized a Astro and Firebase, which allowed us to handle user authentication, database management, and efficient data retrieval.
+Study Buddies was built using a combination of modern web development technologies. The frontend of the platform was developed using Astro, React, Figma, Firebase, and Vercel, providing an intuitive and responsive user interface. For the backend, we utilized a Astro, Vercel and Firebase, which allowed us to handle user authentication, database management, and efficient data retrieval.
+
+### Stack
+* [![Astro][Astro.build]][Astro-url]
+* [![React][React.js]][React-url]
+* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![Firebase][Firebase.google.com]][Firebase-url]
+* [![Vercel][Vercel.com]][Vercel-url]
+
 
 ## Challenges we ran into
 
@@ -63,3 +88,22 @@ git clone https://github.com/JonCGroberg/study-buddy
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+
+
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/JonCGroberg/study-buddy/graphs/contributors
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/JonCGroberg/study-buddy/stargazers
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[Astro]:  https://img.shields.io/badge/astro-%232C2052.svg?style=for-the-badge&logo=astro&logoColor=white
+[Astro-url]: https://astro.build/
+[Vercel]:   https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white
+[Vercel-url]: https://vercel.com/
+[Firebase]:  https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
+[Firebase-url]: https://firebase.google.com/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
