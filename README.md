@@ -41,14 +41,9 @@ Study Buddies is a platform designed to help students at UF find study groups ta
 
 ## 🏗️ How we built it
 
-Study Buddies was built using a combination of modern web development technologies. The frontend of the platform was developed using Astro, React, Figma, Firebase, and Vercel, providing an intuitive and responsive user interface. For the backend, we utilized a Astro, Vercel and Firebase, which allowed us to handle user authentication, database management, and efficient data retrieval.
+Study Buddies was built using a combination of modern web development technologies. The frontend of the platform was developed using Astro, React, Figma, providing an intuitive and responsive user interface. For the backend, we utilized a Astro, Vercel and Firebase, which allowed us to handle user authentication, database management, and efficient data retrieval.
 
-### Stack
-* [![Astro][Astro.build]][Astro-url]
-* [![React][React.js]][React-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![Firebase][Firebase.google.com]][Firebase-url]
-* [![Vercel][Vercel.com]][Vercel-url]
+[![Astro][Astro.build]][Astro-url] [![React][React.js]][React-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![Firebase][Firebase.google.com]][Firebase-url] [![Vercel][Vercel.com]][Vercel-url]
 
 
 ## Challenges we ran into
