@@ -8,7 +8,7 @@
 
 > Test with **login**: `test@gmail.com` and **password**: `password` OR create a new account
 
-<img width=600 src="./screenshots/SearchPills.png"/>
+<img width=1000 src="./screenshots/SearchPills.png"/>
 
 ## 💡 Inspiration
 
