@@ -91,9 +91,9 @@ git clone https://github.com/JonCGroberg/study-buddy
 
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/JonCGroberg/study-buddy?style=for-the-badge
 [contributors-url]: https://github.com/JonCGroberg/study-buddy/graphs/contributors
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/contributors/JonCGroberg/study-buddy.svg?style=for-the-badge
 [stars-url]: https://github.com/JonCGroberg/study-buddy/stargazers
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
