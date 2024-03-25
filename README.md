@@ -6,7 +6,7 @@
 
 > **Try it out live!**: [Study-buddy.vercel.app](https://study-buddy-git-main-jongroberg.vercel.app/welcome)
 
-> Test with **login**: test@gmail.com and **password**:password OR create a new account
+> Test with **login**: `test@gmail.com` and **password**: `password` OR create a new account
 
 <img width=600 src="./screenshots/SearchPills.png"/>
 
