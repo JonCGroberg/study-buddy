@@ -1,5 +1,5 @@
 # Study Buddies
-
+Study Smarter, Together: Join Study Buddies and Ace Your UF Courses!
 > Hackathon Submission: [Devpost](https://devpost.com/software/study-buddies-brqelk)
 
 ### Demo
@@ -8,7 +8,9 @@
 
 > Test with **login**: `test@gmail.com` and **password**: `password` OR create a new account
 
-<img width=1000 src="./screenshots/SearchPills.png"/>
+#### Demo Video
+
+[![Demonstration](https://img.youtube.com/vi/YaSxxyFTSD8/0.jpg)](https://www.youtube.com/watch?v=YaSxxyFTSD8)
 
 ## 💡 Inspiration
 
