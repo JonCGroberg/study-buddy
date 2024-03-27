@@ -168,7 +168,6 @@ function Form() {
 							required={true}
 							onChange={(e) => setSelectedStartDate(e.target.value)}
 						>
-
 							{getWeekDates().map((date, index) => (
 								<option value={index}>
 									{date.toLocaleString("en-us", { weekday: "long" }) +
@@ -237,10 +236,14 @@ function Form() {
 					</div>
 				</div>
 				<div className="pt-4">
-                    <button id="bookButton" type="submit" className="btn btn-primary mx-auto w-100">
-                        Book
-                    </button>
-                </div>
+					<button
+						id="bookButton"
+						type="submit"
+						className="btn btn-primary mx-auto w-100"
+					>
+						Book
+					</button>
+				</div>
 			</div>
 		</form>
 	);
@@ -314,7 +317,7 @@ function handleSubmit(
 		body: JSON.stringify(studyGroup)
 	}).then((data) => {
 		console.log(data);
-        window.location.replace("/")
+		window.location.replace("/");
 	});
 }
 

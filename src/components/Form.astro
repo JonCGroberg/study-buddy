@@ -1,0 +1,15 @@
+---
+import type { HTMLInputTypeAttribute } from "react";
+import FormInput from "../components/FormInput.astro";
+
+const { action, method, buttonMessage, inputs } = Astro.props;
+---
+
+<form action={action} method={method}>
+	{
+		inputs.map((inputType: HTMLInputTypeAttribute) => (
+			<FormInput inputType={inputType} />
+		))
+	}
+	<button type="submit" class="btn btn-primary w-100">{buttonMessage}</button>
+</form>

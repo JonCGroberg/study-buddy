@@ -1,0 +1,22 @@
+---
+import { type HTMLInputTypeAttribute } from "react";
+
+const { inputType } = Astro.props;
+
+const type: HTMLInputTypeAttribute = inputType.toLowerCase();
+const lableText = type[0].toUpperCase() + type.slice(1);
+---
+
+<div class="mb-3">
+	<label for="name" class="form-label">
+		{lableText}
+	</label>
+	<input
+		type={type as astroHTML.JSX.HTMLInputTypeAttribute}
+		class="form-control"
+		id={type}
+		name={type}
+		autocomplete={type}
+		required
+	/>
+</div>
