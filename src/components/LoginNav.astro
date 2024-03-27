@@ -1,0 +1,14 @@
+---
+const { message, linkMessage, linkUrl } = Astro.props;
+---
+
+<div class="row justify-content-center align-items-center text-center">
+	<h2 class="col-auto px-0 pe-1 py-1">
+		<img src="/image.png" class="img-fluid rounded mx-auto" alt="Image" />
+	</h2>
+	<h2 class="col-auto px-0 ps-1 text-start">StudyBuddies</h2>
+	<p>
+		{message}
+		<a href={linkUrl}>{linkMessage}</a>
+	</p>
+</div>

@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { app } from "../../firebase/server";
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
-import { serverStudyJoin } from "../../studybuddy";
+import { serverStudyJoin } from "../../utils/studybuddy";
 
 const auth = getAuth(app);
 export const POST: APIRoute = async ({ cookies, request }) => {

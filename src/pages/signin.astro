@@ -2,106 +2,81 @@
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
+import HeroLayout from "../layouts/HeroLayout.astro";
+import LoginNav from "../components/LoginNav.astro";
+import Form from "../components/Form.astro";
+
+
+const title = "Signin";
+const [message, linkUrl, linkMessage] = [
+	"New Here?",
+	"/register",
+	"Create an account"
+];
+const [formAction, formMethod, formInputs] = [
+	"../api/auth/signin",
+	"post",
+	["email", "password"]
+];
 
 /* Check if the user is authenticated */
 const auth = getAuth(app);
 if (Astro.cookies.has("session")) {
-  const sessionCookie = Astro.cookies.get("session").value;
-  const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-  if (decodedCookie) {
-    return Astro.redirect("/");
-  }
+	const sessionCookie = Astro.cookies.get("session").value;
+	const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+
+	if (decodedCookie) return Astro.redirect("/");
 }
 ---
 
-<Layout title="StudyBuddies | Sign In">
-  <div class="container mt-3">
-    <div class="row mt-5">
-      <div class="col-md-6 offset-md-3">
-        <div class="row justify-content-center">
-            <h2 class="col-auto"><img src="/image.png" class="" alt="Image" /></h2>
-            <h2 class="col-auto">StudyBuddies</h2>
-        </div>
-        <p class="text-center">
-          New here? <a href="/register">Create an account</a>
-        </p>
-        <form action="/api/auth/signin" method="post">
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              name="email"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-              required
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Log In</button>
-        </form>
-      </div>
-    </div>
-  </div>
+<Layout title={title}>
+	<HeroLayout>
+		<LoginNav message={message} linkUrl={linkUrl} linkMessage={linkMessage} />
+		<Form
+			action={formAction}
+			method={formMethod}
+			buttonMessage={title}
+			inputs={formInputs}
+		/>
+	</HeroLayout>
 </Layout>
-<!-- 
-<Layout title="Sign in">
-	<h1>Sign in</h1>
-	<p>New here? <a href="/register">Create an account</a></p>
-	<form action="/api/auth/signin" method="post">
-		<label for="email" for="email">Email</label>
-		<input type="email" name="email" id="email" />
-		<label for="password">Password</label>
-		<input type="password" name="password" id="password" />
-		<button type="submit">Login</button>
-	</form>
-</Layout>
--->
+
 <script>
-  import {
-    getAuth,
-    inMemoryPersistence,
-    signInWithEmailAndPassword,
-  } from "firebase/auth";
-  import { app } from "../firebase/client";
+	import {
+		getAuth,
+		inMemoryPersistence,
+		signInWithEmailAndPassword
+	} from "firebase/auth";
+	import { app } from "../firebase/client";
 
-  const auth = getAuth(app);
-  // This will prevent the browser from storing session data
-  auth.setPersistence(inMemoryPersistence);
+	const auth = getAuth(app);
 
-  const form = document.querySelector("form") as HTMLFormElement;
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const email = formData.get("email")?.toString();
-    const password = formData.get("password")?.toString();
+	// This will prevent the browser from storing session data
+	auth.setPersistence(inMemoryPersistence);
 
-    if (!email || !password) {
-      return;
-    }
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const idToken = await userCredential.user.getIdToken();
-    const response = await fetch("/api/auth/signin", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
+	const form = document.querySelector("form") as HTMLFormElement;
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault();
 
-    if (response.redirected) {
-      window.location.assign(response.url);
-    }
-  });
+		const formData = new FormData(form);
+		const email = formData.get("email")?.toString();
+		const password = formData.get("password")?.toString();
+
+		if (!email || !password) return;
+
+		const userCredential = await signInWithEmailAndPassword(
+			auth,
+			email,
+			password
+		);
+		const idToken = await userCredential.user.getIdToken();
+		const response = await fetch("/api/auth/signin", {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${idToken}`
+			}
+		});
+
+		if (response.redirected) window.location.assign(response.url);
+	});
 </script>

@@ -1,32 +1,25 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import LoginNav from "../components/LoginNav.astro";
+import HeroLayout from "../layouts/HeroLayout.astro";
+import Form from "../components/Form.astro";
+
+const title = "Register";
+const [message, linkUrl, linkMessage] = [
+	"Already have an account?",
+	"/signin",
+	"Sign in"
+];
+const [formAction, formMethod, formInputs] = [
+	"../api/auth/register",
+	"post",
+	["name", "email", "password"]
+];
 ---
 
-<Layout title="StudyBuddies | Register">
-  <div class="container mt-3">
-    <div class="row mt-5">
-      <div class="col-md-6 offset-md-3">
-        <div class="row justify-content-center">
-            <h2 class="col-auto"><img src="/image.png" class="" alt="Image" /></h2>
-            <h2 class="col-auto">StudyBuddies</h2>
-        </div>
-        <p class="text-center">Already have an account? <a href="/signin">Sign in</a></p>
-        <form action="/api/auth/register" method="post">
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-      </div>
-    </div>
-  </div>
+<Layout title={title}>
+	<HeroLayout>
+		<LoginNav message={message} linkUrl={linkUrl} linkMessage={linkMessage} />
+		<Form action={formAction} method={formMethod} buttonMessage ={title} inputs={formInputs} />
+	</HeroLayout>
 </Layout>

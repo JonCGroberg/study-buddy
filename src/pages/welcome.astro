@@ -1,21 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import HeroLayout from "../layouts/HeroLayout.astro";
 ---
 
-<Layout title="StudyBuddies">
-  <div class="container mt-3">
-    <div class="row mt-5 p-0 m-0">
-      <div class="col-md-6 mx-auto">
-        <div class="text-center pt-5 mt-5">
-          <img src="/image.png" class="img-fluid rounded mx-auto d-block" alt="Image" />
-          <p class="mt-3 mx-auto  text-center  fw-bold fs-4">Find study groups easily and quickly with StudyBuddies</p>
-          <p class="mt-3 mx-auto text-cente  fs-4">Sign up to get started, or log in if you have an account!</p>
-          <div class="row p-0 m-0 w-100 ">
-            <a href="/signin" class="btn btn-primary rounded-3 mt-3 btn-lg">Sign In</a>
-            <a href="/register" class="btn btn-outline-secondary rounded-3 mt-3 btn-lg">Register</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<Layout>
+	<HeroLayout>
+		<div class="text-center">
+			<img src="/image.png" class="img-fluid rounded mx-auto" alt="Image" />
+			<h4 class="mt-3 mx-auto fw-bold">
+				Find study groups easily and quickly with StudyBuddies
+			</h4>
+			<h5 class="mt-3 mx-auto">
+				Sign up to get started, or log in if you have an account!
+			</h5>
+		</div>
+		<div class="py-4">
+			<a href="/signin" class="btn btn-primary rounded-3 w-100">Sign In</a>
+			<a href="/register" class="btn btn-outline-secondary rounded-3 mt-3 w-100"
+				>Register</a
+			>
+		</div>
+	</HeroLayout>
 </Layout>

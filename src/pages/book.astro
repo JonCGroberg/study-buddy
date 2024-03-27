@@ -2,8 +2,8 @@
 import { app } from "../firebase/server";
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
-import Nav from "./components/Nav";
-import Form from "./components/Form";
+import Nav from "../components/Nav";
+import Form from "../components/Form.jsx";
 
 const auth = getAuth(app);
 let user: DecodedIdToken;
@@ -12,7 +12,7 @@ if (Astro.cookies.has("session"))
 if (!user) return Astro.redirect("/welcome");
 ---
 
-<Layout title="StudyBuddies | Book">
+<Layout title="Booking">
 	<Nav title={"Book a Study Session"} bookable={false} />
 	<main class="bg-body-secondary py-5">
 		<Form client:load/>
