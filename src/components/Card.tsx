@@ -9,23 +9,23 @@ const Card = ({ cardData, userId }) => {
 
 	return (
 		<div
-			className="card px-2 shadow-sm py-1"
+			className="card px-2 shadow-sm py-0 py-sm-2"
 			style={{
 				border: "0.1em solid " + outlineColor,
 				borderLeft: "1em solid " + outlineColor
 			}}
 		>
 			<Modal cardData={cardData} />
-			<div className="card-body row px-3 py-3">
+			<div className="card-body row px-3 py-2 gap-3">
 				<div className="col align-items-center py-md-0 py-2">
-					<h6 className="col fw-bold py-0 py-0  ">
+					<h6 className="col fw-bold py-0 py-0 mb-1">
 						<span>
 							{cardData.course} {cardData.course_title}
 							{cardData.name != "" ? " - " + cardData.name : ""}
 						</span>
 					</h6>
-					<div className="row col-sm m-0  mt-2 gap-2">
-						<h6 className="small col-lg-auto col-auto my-auto  bg-body-secondary align-content-center px-3 py-2 rounded-1 border">
+					<div className="row col-sm m-0 gap-1 pt-0">
+						<h6 className="small col-lg-auto col-auto my-auto  bg-body-secondary align-content-center px-3 py-1 rounded-1 border">
 							Ends {formatAMPM(new Date(cardData.end)).toString()}
 						</h6>
 						<h6 className=" col-auto my-auto small text-secondary h-100 align-content-center ">
@@ -35,14 +35,14 @@ const Card = ({ cardData, userId }) => {
 				</div>
 
 				<div className="col-12 col-md-auto my-auto my-auto  align-items-center px-4">
-					<div className="row gap-2">
+					<div className="row gap-1">
 						{!userAlreadyJoined ? (
 							<JoinBtn cardData={cardData} />
 						) : (
 							<LeaveBtn cardData={cardData} />
 						)}
 						<button
-							className="btn btn-sm p-2 btn-outline  fw-medium col"
+						className="btn btn-sm p-2 px-3 shadow-sm text-primary border border-light     fw-medium col"
 							data-bs-toggle="modal"
 							data-bs-target={"#modal-" + cardData.id}
 						>
@@ -115,7 +115,7 @@ const Modal = ({ cardData }) => (
 const JoinBtn = ({ cardData }) => (
 	<button
 		onClick={() => handleJoin(cardData.id)}
-		className="btn-sm btn small btn-outline-primary ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm w-auto btn-width"
+		className="btn-sm btn small btn-outline-primary ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm btn-width shadow-sm"
 	>
 		{"Join This Group (" + cardData.buddies.length}/
 		{(cardData.max_buddies < 1 ? "∞" : cardData.max_buddies) + ")"}
@@ -125,7 +125,7 @@ const JoinBtn = ({ cardData }) => (
 const LeaveBtn = ({ cardData }) => (
 	<button
 		onClick={() => handleLeave(cardData.id)}
-		className="btn-sm btn small btn-danger ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm w-auto btn-width"
+		className="btn-sm btn small btn-outline-danger ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm  btn-width "
 	>
 		{"Leave This Group (" + cardData.buddies.length}/
 		{(cardData.max_buddies < 1 ? "∞" : cardData.max_buddies) + ")"}

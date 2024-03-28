@@ -18,8 +18,8 @@ const Search = ({ courses = [] }) => {
 	}, [])
 
 	return (
-		<div className="mt-5 ms-0 ps-0 ms-sm-4 ps-sm-4  ">
-			<div className="row px-0 ms-0 me-0 px-sm-5">
+		<div className="mt-5 ms-0 ps-0 px-md-4 px-md-3 ">
+			<div className="row px-0 ms-0 me-0 px-sm-0 px-md-4">
 				<div
 					className="w-100"
 				>
