@@ -1,0 +1,53 @@
+---
+import BookingModal from "./BookingModal";
+import "../styles/styles.css";
+
+const { title = "", bookable = true } = Astro.props;
+---
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm border">
+	<div class="container-fluid px-3">
+		<a class="navbar-brand" href="/">
+			<img src="/image.png" />
+			<span class="px-3 text-primary fw-bold">StudyBuddies</span>
+		</a>
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse text-center align-content-center " id="navbarSupportedContent">
+			<ul class="navbar-nav mb-2 mb-lg-0"></ul>
+			<div class="d-flex flex-grow-1 text-center px-5 mx-5">
+				<h6 class="text-center w-100 fw-bold">
+					{}
+				</h6>
+			</div>
+			{
+				bookable ? (
+					<a
+						href="/book"
+						class="btn btn-primary me-0"
+						data-bs-toggle="modal"
+						data-bs-target="#modal-book"
+					>
+						{"New Study Session"}
+					</a>
+				) : (
+					<div class="px-5" />
+				)
+			}
+			<a href="/api/auth/signout" class="btn btn-outline-secondary ms-2"
+				>Signout</a
+			>
+		</div>
+	</div>
+</nav>
+
+<BookingModal client:visible />

@@ -1,6 +1,6 @@
 import type { Key } from "react";
 import "../styles/styles.css";
-import formatAMPM from "../utils/time";
+import {formatAMPM} from "../utils/time";
 import Card from "./Card";
 
 const Timeline = ({ studyGroups, userId }) => (

@@ -2,6 +2,17 @@ import { FieldValue, Timestamp, WriteResult } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 import { app, db } from "../firebase/server";
 
+export {
+	type User,
+	type StudyGroup,
+	serverStudySearch,
+	serverUserStudySearch,
+	serverStudyBook,
+	serverStudyLeave,
+	serverStudyJoin,
+	type StudyBooking
+};
+
 const unknownUser: User = { id: "0", name: "<unknown>" };
 type User = {
 	id: string;
@@ -134,13 +145,3 @@ async function serverStudyJoin(user: string, group: string): Promise<boolean> {
 
 	return true;
 }
-
-export {
-    type User,
-    type StudyGroup,
-    serverStudySearch,
-    serverUserStudySearch,
-    serverStudyBook,
-    serverStudyLeave,
-    serverStudyJoin, type StudyBooking
-};

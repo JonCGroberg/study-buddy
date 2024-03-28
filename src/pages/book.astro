@@ -2,7 +2,7 @@
 import { app } from "../firebase/server";
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav";
+import Nav from "../components/Nav.jsx";
 import Form from "../components/Form.jsx";
 
 const auth = getAuth(app);
@@ -13,28 +13,8 @@ if (!user) return Astro.redirect("/welcome");
 ---
 
 <Layout title="Booking">
-	<Nav title={"Book a Study Session"} bookable={false} />
-	<main class="bg-body-secondary py-5">
-		<Form client:load/>
+	<Nav client:load title={"Create a Study Session"} bookable={false} />
+	<main class="bg-body-secondary py-sm-5 py-2 w-100">
+		<Form client:load />
 	</main>
 </Layout>
-<!-- <script>
-
-
-    const form = document.querySelector("form") as HTMLFormElement;
-	form.addEventListener("submit", async (e) => {
-		e.preventDefault();
-		const formData = new FormData(form);
-        const course = "MAS3114";
-		const name = formData.get("name")?.toString(); // empty string on emtpy
-		let description = formData.get("password")?.toString(); // undefined on empty
-        description = !description ? "" : description;
-		const location = formData.get("location")?.toString(); // emtpy string on empty
-        const size = formData.get("size");
-        const start = getUnixTimestampFromInputs(formData.get("startDate"), formData.get("startTime"));
-        const end = getUnixTimestampFromInputs(formData.get("endDate"), formData.get("endTime"));
-
-        if(location == "" || !size || !start || !end) return; // TODO: error
-
-
-</script> -->

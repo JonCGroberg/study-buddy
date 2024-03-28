@@ -1,54 +1,38 @@
 import { useState, useEffect } from "react";
+import { getWeekDates, getTimeBlock, getUnixTimestampFromInputs } from "../utils/time"
 
 function Form() {
-	let [name, setName] = useState([]);
-	let [description, setDescription] = useState([]);
-	let [location, setLocation] = useState([]);
-	let [selectedGroupSize, setSelectedGroupSize] = useState(null);
-	let [selectedStartDate, setSelectedStartDate] = useState([null]);
-	let [selectedStartTime, setSelectedStartTime] = useState([null]);
-	let [selectedEndTime, setSelectedEndTime] = useState([null]);
-	let [selectedEndDate, setSelectedEndDate] = useState([null]);
+	let [inputs, setInputs] = useState({})
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
 	let [search, setSearch] = useState([]);
 	let [dropdown, setDropdown] = useState(false);
-	let [selected, setSelected] = useState([]);
-	let [courseName, setCourseName] = useState();
 
+	//gather the list of all courses
 	useEffect(() => {
 		fetch("/courses.json", { method: "GET" })
 			.then((res) => res.json())
 			.then((data) => {
 				setOptions(data);
 			});
-		// async function filterCourses(code) {
-		// 	return courses.filter((course) => course.code.includes(code));
-		// }
 	}, []);
+
+	// Unless we give name or value, it infers this data from the event
+	const handleChange = (event, name, value) => {
+		if (!name) name = event.target.name;
+		if (!value) value = event.target.value;
+		setInputs(values => ({ ...values, [name]: value }))
+	}
 
 	return (
 		<form
-			className="card w-75 mx-auto p-5"
-			onSubmit={(e) =>
-				handleSubmit(e, {
-					name,
-					description,
-					location,
-					selectedEndDate,
-					selectedEndTime,
-					selectedGroupSize,
-					selectedStartDate,
-					selectedStartTime,
-					selected,
-					courseName
-				})
-			}
+			className="card shadow  px-0 px-sm-4 py-4 mx-1 mx-sm-auto" style={{ maxWidth: 600 + 'px' }}
+			onSubmit={(e) => handleSubmit(e, inputs)}
 		>
-			<div className="card-body">
-				{" "}
+			<div className="pt-sm-3 pt-0 px-3 border-bottom pb-4 "> <h4 className=" card-title fw-bold  ">Create a New Study Session</h4> </div>
+			<div className="card-body pt-3">
 				<div>
-					<label> Course Name </label>
+					<label className=" form-label "> Course Name </label>
 					<input
 						type="text"
 						className="form-control"
@@ -76,13 +60,12 @@ function Form() {
 							defaultValue={[]}
 							onChange={(e) => {
 								const parsedData = JSON.parse(e.target.value);
-								// console.log(parsedData.code, parsedData.name);
-								setSelected(parsedData.code);
-								setCourseName(parsedData.name);
+								handleChange(e, "courseCode", parsedData.code);
+								handleChange(e, "courseName", parsedData.name);
 							}}
 							className=" form-select"
 						>
-							<option selected="selected"> Select Class</option>
+							<option defaultValue={[]}> Select Class</option>
 							{searchResults.map((option, index) => (
 								<option key={index} value={JSON.stringify(option)}>
 									{option.code + " -  " + option.name}
@@ -94,67 +77,42 @@ function Form() {
 					)}
 				</div>
 				<div className="my-3">
-					<label for="name" className="form-label">
-						Name
-					</label>
-					<input
-						type="text"
-						value={name}
-						onChange={(e) => {
-							setName(e.target.value);
-						}}
+					<label className="form-label w-100"> Study Group Name <span className="text-secondary">(optional)</span></label><input
+						name="name"
+						value={inputs.name || ""}
+						onChange={handleChange}
 						className="form-control"
 						placeholder="Enter Study Session Name"
 					/>
+
 				</div>
+
 				<div className="mb-3">
-					<label for="description">Description</label>
-					<textarea
-						className="form-control"
-						value={description}
-						onChange={(e) => {
-							setDescription(e.target.value);
-						}}
-						rows={3}
-						aria-describedby="descriptionHelp"
-					></textarea>
-					{/* <div id="descriptionHelp" className="form-text">
-                        Add any useful info here!
-                    </div> */}
-				</div>
-				<div className="mb-3">
-					<label for="location" className="form-label">
-						Location
-					</label>
+					<label htmlFor="location" className="form-label"> Location </label>
 					<input
-						type="text"
 						className="form-control"
-						value={location}
-						onChange={(e) => {
-							setLocation(e.target.value);
-						}}
+						name="location"
+						value={inputs.location || ""}
+						onChange={handleChange}
 						required
 						placeholder="Enter location"
-						aria-describedby="groupLocationHelp"
 					/>
-					{/* <div id="groupLocationHelp" className="form-text">
-                        Be as specific as possible!
-                    </div> */}
 				</div>
+
 				<div className="mb-3">
-					<label for="size" className="form-label">
+					<label htmlFor="size" className="form-label">
 						Group Size
 					</label>
 					<select
+						name="groupSize"
 						className="form-select"
-						value={selectedGroupSize}
-						required={true}
-						onChange={(e) => setSelectedGroupSize(e.target.value)}
+						value={inputs.groupSize}
+						required
+						onChange={handleChange}
 					>
-						<option value="4">Small (4)</option>
-						<option value="8" selected>
-							Medium (8)
-						</option>
+						<option value="">Select Group Size</option>
+						<option value="4" >Small (4)</option>
+						<option value="8">Medium (8)</option>
 						<option value="16">Large (16)</option>
 						<option value="-1">Unlimited</option>
 					</select>
@@ -163,13 +121,15 @@ function Form() {
 					<label className="form-label">Start</label>
 					<div className="col">
 						<select
+							name="startDate"
 							className="form-select"
-							value={selectedStartDate}
-							required={true}
-							onChange={(e) => setSelectedStartDate(e.target.value)}
+							value={inputs.startDate}
+							required
+							onChange={handleChange}
 						>
+							<option value="">Select Start Date</option>
 							{getWeekDates().map((date, index) => (
-								<option value={index}>
+								<option value={index} key={index}>
 									{date.toLocaleString("en-us", { weekday: "long" }) +
 										", " +
 										date.toLocaleString("en-us", { month: "long" }) +
@@ -184,13 +144,14 @@ function Form() {
 					</span>
 					<div className="col">
 						<select
+							name="startTime"
 							className="form-select"
-							value={selectedStartTime}
-							onChange={(e) => setSelectedStartTime(e.target.value)}
-							required={true}
-						>
+							value={inputs.startTime}
+							onChange={handleChange}
+							required
+						><option value="">Select Start Time</option>
 							{[...Array(24 * 4).keys()].map((index) => (
-								<option value={index}>
+								<option value={index} key={index}>
 									{getTimeBlock(index).toLocaleTimeString("en-US")}
 								</option>
 							))}
@@ -201,13 +162,14 @@ function Form() {
 					<label className="form-label">End</label>
 					<div className="col">
 						<select
+							name="endDate"
 							className="form-select"
-							value={selectedEndDate}
-							onChange={(e) => setSelectedEndDate(e.target.value)}
-							required={true}
-						>
+							value={inputs.endDate}
+							onChange={handleChange}
+							required
+						><option value="">Select End Date</option>
 							{getWeekDates().map((date, index) => (
-								<option value={index}>
+								<option value={index} key={index}>
 									{date.toLocaleString("en-us", { weekday: "long" }) +
 										", " +
 										date.toLocaleString("en-us", { month: "long" }) +
@@ -222,92 +184,66 @@ function Form() {
 					</div>
 					<div className="col">
 						<select
+							name="endTime"
 							className="form-select"
-							value={selectedEndTime}
-							onChange={(e) => setSelectedEndTime(e.target.value)}
-							required={true}
-						>
+							value={inputs.endTime}
+							onChange={handleChange}
+							required
+						><option value="">Select End Time</option>
 							{[...Array(24 * 4).keys()].map((index) => (
-								<option value={index}>
+								<option value={index} key={index}>
 									{getTimeBlock(index).toLocaleTimeString("en-US")}
 								</option>
 							))}
 						</select>
 					</div>
 				</div>
-				<div className="pt-4">
+				<div className="mb-3">
+					<label className="form-label"> Description <span className="text-secondary">(optional)</span></label>
+					<textarea
+						name="description"
+						value={inputs.description || ""}
+						onChange={handleChange}
+						className="form-control"
+						placeholder="Begin Typing to add a description"
+						rows={3}
+					/>
+				</div>
+				<div className="pt-3">
 					<button
 						id="bookButton"
 						type="submit"
 						className="btn btn-primary mx-auto w-100"
 					>
-						Book
+						Create
 					</button>
 				</div>
 			</div>
+
+			{[...Object.entries(inputs)].map(x => <p>{x}</p>)}
 		</form>
+
 	);
 }
 
-function getWeekDates() {
-	const start = new Date();
-	const dates = [];
-	for (let i = 0; i < 7; i++) {
-		const date = new Date();
-		date.setDate(start.getDate() + i);
-		dates.push(date);
-	}
-	return dates;
-}
-
-function getTimeBlock(i) {
-	const date = new Date();
-	date.setHours(Math.floor(i / 4));
-	date.setMinutes((i % 4) * 15);
-	date.setSeconds(0);
-	return date;
-}
-
-function getUnixTimestampFromInputs(day, time) {
-	if (!day || !time) return undefined;
-	const date = getTimeBlock(time);
-	date.setDate(Number(date.getDate()) + Number(day));
-	return Math.floor(date.getTime() / 1000);
-}
-
-function handleSubmit(
-	e,
-	{
-		name = "",
-		description = "",
-		location,
-		selectedEndDate,
-		selectedEndTime,
-		selectedGroupSize,
-		selectedStartDate,
-		selectedStartTime,
-		selected,
-		courseName
-	}
-) {
+function handleSubmit(e, { endDate, endTime, startDate, startTime, courseCode, courseName, description, location, groupSize, name }) {
 	e.preventDefault();
-	e.stopPropagation();
-	const start = getUnixTimestampFromInputs(
-		selectedStartDate,
-		selectedStartTime
-	);
-	const end = getUnixTimestampFromInputs(selectedEndDate, selectedEndTime);
+
+	const start = getUnixTimestampFromInputs(startDate, startTime);
+	const end = getUnixTimestampFromInputs(endDate, endTime);
 
 	const studyGroup = {
-		course: selected,
+		course: courseCode,
 		course_title: courseName,
-		name,
-		description,
+		name: name || "",
+		description: description || "",
 		start,
 		end,
 		location,
-		max_buddies: selectedGroupSize
+		max_buddies: groupSize
 	};
+
+	console.log(studyGroup)
 
 	fetch("/api/book", {
 		method: "POST",
@@ -315,9 +251,9 @@ function handleSubmit(
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(studyGroup)
-	}).then((data) => {
-		console.log(data);
-		window.location.replace("/");
+	}).then((res) => {
+		if (res.ok) window.location.replace("/");
+		else console.log(res);
 	});
 }
 
