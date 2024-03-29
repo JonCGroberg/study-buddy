@@ -2,7 +2,7 @@
 import BookingModal from "./BookingModal";
 import "../styles/styles.css";
 
-const { title = "", bookable = true } = Astro.props;
+const { bookable = true } = Astro.props;
 ---
 
 <nav class="navbar navbar-expand-lg bg-white shadow-sm border">
@@ -22,7 +22,10 @@ const { title = "", bookable = true } = Astro.props;
 		>
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse text-center align-content-center " id="navbarSupportedContent">
+		<div
+			class="collapse navbar-collapse text-center align-content-center"
+			id="navbarSupportedContent"
+		>
 			<ul class="navbar-nav mb-2 mb-lg-0"></ul>
 			<div class="d-flex flex-grow-1 text-center px-5 mx-5">
 				<h6 class="text-center w-100 fw-bold">

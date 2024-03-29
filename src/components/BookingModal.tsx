@@ -1,12 +1,68 @@
-import { useState, useEffect } from "react";
-import { getWeekDates, getTimeBlock, getUnixTimestampFromInputs } from "../utils/time"
+import {
+	useState,
+	useEffect,
+	type ChangeEvent,
+	type FormEvent,
+	type Key
+} from "react";
+import {
+	getWeekDates,
+	getTimeBlock,
+	getUnixTimestampFromInputs
+} from "../utils/time";
 
-function Form() {
-	let [inputs, setInputs] = useState({})
-	let [options, setOptions] = useState([]);
-	let [searchResults, setSearchResults] = useState([]);
-	let [search, setSearch] = useState([]);
+type Booking = {
+	endDate: string;
+	endTime: number;
+	startDate: string;
+	startTime: number;
+	courseCode: string;
+	courseName: string;
+	description: string;
+	location: string;
+	groupSize: number;
+	name: string;
+};
+
+const BookingModal = () => {
+	return (
+		<div
+			className="modal fade "
+			id={"modal-book"}
+			tabIndex={-1}
+			aria-labelledby={"modal-label-book"}
+			aria-hidden="true"
+		>
+			<div className="modal-dialog ">
+				<div className="modal-content rounded-1">
+					<div className="modal-header">
+						<h1 className="modal-title fs-5 px-2" id={"modal-label-book"}>
+							Create a New Study Session
+						</h1>
+						<button
+							type="button"
+							className="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div className="model-body p-2 pt-0">
+						<Form />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const Form = () => {
+	let [inputs, setInputs] = useState<Booking | null>(null);
+	let [options, setOptions] = useState(null);
+	let [searchResults, setSearchResults] = useState(null);
+	let [search, setSearch] = useState(null);
 	let [dropdown, setDropdown] = useState(false);
+
+	console.log("booking modal");
 
 	//gather the list of all courses
 	useEffect(() => {
@@ -18,18 +74,20 @@ function Form() {
 	}, []);
 
 	// Unless we give name or value, it infers this data from the event
-	const handleChange = (event, name, value) => {
+	const handleChange = (
+		event: ChangeEvent<
+			HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+		>,
+		name?: string,
+		value?: string
+	) => {
 		if (!name) name = event.target.name;
 		if (!value) value = event.target.value;
-		setInputs(values => ({ ...values, [name]: value }))
-	}
+		setInputs((values: Booking | null) => ({ ...values, [name]: value }));
+	};
 
 	return (
-		<form
-			className="card shadow  px-0 px-sm-4 py-4 mx-1 mx-sm-auto" style={{ maxWidth: 600 + 'px' }}
-			onSubmit={(e) => handleSubmit(e, inputs)}
-		>
-			<div className="pt-sm-3 pt-0 px-3 border-bottom pb-4 "> <h4 className=" card-title fw-bold  ">Create a New Study Session</h4> </div>
+		<form className="modal-body" onSubmit={(e) => handleSubmit(e, inputs)}>
 			<div className="card-body pt-3">
 				<div>
 					<label className=" form-label "> Course Name </label>
@@ -44,14 +102,14 @@ function Form() {
 								setDropdown(true);
 								setSearchResults(
 									options
-										.filter((option) =>
+										.filter((option: { code: string | string[] }) =>
 											option.code.includes(e.target.value.toUpperCase())
 										)
 										.slice(0, 15)
 								);
 							} else {
 								setDropdown(false);
-								setSearchResults();
+								setSearchResults([]);
 							}
 						}}
 					/>
@@ -66,33 +124,41 @@ function Form() {
 							className=" form-select"
 						>
 							<option defaultValue={[]}> Select Class</option>
-							{searchResults.map((option, index) => (
-								<option key={index} value={JSON.stringify(option)}>
-									{option.code + " -  " + option.name}
-								</option>
-							))}
+							{searchResults.map(
+								(option: { code: string; name: string }, index: Key) => (
+									<option key={index} value={JSON.stringify(option)}>
+										{option.code + " -  " + option.name}
+									</option>
+								)
+							)}
 						</select>
 					) : (
 						""
 					)}
 				</div>
+
 				<div className="my-3">
-					<label className="form-label w-100"> Study Group Name <span className="text-secondary">(optional)</span></label><input
+					<label className="form-label w-100">
+						Study Group Name <span className="text-secondary">(optional)</span>
+					</label>
+					<input
 						name="name"
-						value={inputs.name || ""}
+						value={inputs?.name || ""}
 						onChange={handleChange}
 						className="form-control"
 						placeholder="Enter Study Session Name"
 					/>
-
 				</div>
 
 				<div className="mb-3">
-					<label htmlFor="location" className="form-label"> Location </label>
+					<label htmlFor="location" className="form-label">
+						{" "}
+						Location{" "}
+					</label>
 					<input
 						className="form-control"
 						name="location"
-						value={inputs.location || ""}
+						value={inputs?.location || ""}
 						onChange={handleChange}
 						required
 						placeholder="Enter location"
@@ -106,24 +172,25 @@ function Form() {
 					<select
 						name="groupSize"
 						className="form-select"
-						value={inputs.groupSize}
+						value={inputs?.groupSize}
 						required
 						onChange={handleChange}
 					>
 						<option value="">Select Group Size</option>
-						<option value="4" >Small (4)</option>
+						<option value="4">Small (4)</option>
 						<option value="8">Medium (8)</option>
 						<option value="16">Large (16)</option>
 						<option value="-1">Unlimited</option>
 					</select>
 				</div>
+
 				<div className="row mb-3">
 					<label className="form-label">Start</label>
 					<div className="col">
 						<select
 							name="startDate"
 							className="form-select"
-							value={inputs.startDate}
+							value={inputs?.startDate}
 							required
 							onChange={handleChange}
 						>
@@ -146,10 +213,11 @@ function Form() {
 						<select
 							name="startTime"
 							className="form-select"
-							value={inputs.startTime}
+							value={inputs?.startTime}
 							onChange={handleChange}
 							required
-						><option value="">Select Start Time</option>
+						>
+							<option value="">Select Start Time</option>
 							{[...Array(24 * 4).keys()].map((index) => (
 								<option value={index} key={index}>
 									{getTimeBlock(index).toLocaleTimeString("en-US")}
@@ -158,16 +226,18 @@ function Form() {
 						</select>
 					</div>
 				</div>
+
 				<div className="row mb-3">
 					<label className="form-label">End</label>
 					<div className="col">
 						<select
 							name="endDate"
 							className="form-select"
-							value={inputs.endDate}
+							value={inputs?.endDate}
 							onChange={handleChange}
 							required
-						><option value="">Select End Date</option>
+						>
+							<option value="">Select End Date</option>
 							{getWeekDates().map((date, index) => (
 								<option value={index} key={index}>
 									{date.toLocaleString("en-us", { weekday: "long" }) +
@@ -186,10 +256,11 @@ function Form() {
 						<select
 							name="endTime"
 							className="form-select"
-							value={inputs.endTime}
+							value={inputs?.endTime}
 							onChange={handleChange}
 							required
-						><option value="">Select End Time</option>
+						>
+							<option value="">Select End Time</option>
 							{[...Array(24 * 4).keys()].map((index) => (
 								<option value={index} key={index}>
 									{getTimeBlock(index).toLocaleTimeString("en-US")}
@@ -198,17 +269,21 @@ function Form() {
 						</select>
 					</div>
 				</div>
+
 				<div className="mb-3">
-					<label className="form-label"> Description <span className="text-secondary">(optional)</span></label>
+					<label className="form-label">
+						Description <span className="text-secondary">(optional)</span>
+					</label>
 					<textarea
 						name="description"
-						value={inputs.description || ""}
+						value={inputs?.description || ""}
 						onChange={handleChange}
 						className="form-control"
 						placeholder="Begin Typing to add a description"
 						rows={3}
 					/>
 				</div>
+
 				<div className="pt-3">
 					<button
 						id="bookButton"
@@ -219,14 +294,25 @@ function Form() {
 					</button>
 				</div>
 			</div>
-
-			{[...Object.entries(inputs)].map(x => <p>{x}</p>)}
 		</form>
-
 	);
-}
+};
 
-function handleSubmit(e, { endDate, endTime, startDate, startTime, courseCode, courseName, description, location, groupSize, name }) {
+function handleSubmit(
+	e: FormEvent<HTMLFormElement>,
+	{
+		endDate,
+		endTime,
+		startDate,
+		startTime,
+		courseCode,
+		courseName,
+		description,
+		location,
+		groupSize,
+		name
+	}: Booking
+) {
 	e.preventDefault();
 
 	const start = getUnixTimestampFromInputs(startDate, startTime);
@@ -243,7 +329,7 @@ function handleSubmit(e, { endDate, endTime, startDate, startTime, courseCode, c
 		max_buddies: groupSize
 	};
 
-	console.log(studyGroup)
+	console.log(studyGroup);
 
 	fetch("/api/book", {
 		method: "POST",
@@ -257,4 +343,4 @@ function handleSubmit(e, { endDate, endTime, startDate, startTime, courseCode, c
 	});
 }
 
-export default Form;
+export default BookingModal;
