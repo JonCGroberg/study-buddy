@@ -1,6 +1,6 @@
 import type { Key } from "react";
 import "../styles/styles.css";
-import {formatAMPM} from "../utils/time";
+import { formatAMPM } from "../utils/time";
 import Card from "./Card";
 
 const Timeline = ({ studyGroups, userId }) => (
@@ -25,9 +25,13 @@ const BookSession = () => (
 	>
 		<div className="card-body">
 			<p>No Sessions Found</p>
-			<a className="btn btn-primary" href="/book">
+			<button
+				className="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#modal-book"
+			>
 				Book one now!
-			</a>
+			</button>
 		</div>
 	</div>
 );
