@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-import getCourseColor from "../utils/color.ts"
+import getCourseColor from "../utils/color.ts";
+
 const Search = ({ courses = [] }) => {
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
-	let [search, setSearch] = useState([]);
+	let [search, setSearch] = useState(null);
 	let [dropdown, setDropdown] = useState(false);
 	let [selected, setSelected] = useState(courses);
-	let [selection, setSelection] = useState();
 
 	useEffect(() => {
 		fetch("/courses.json", { method: "GET" })
@@ -15,14 +15,12 @@ const Search = ({ courses = [] }) => {
 			.then((data) => {
 				setOptions(data);
 			});
-	}, [])
+	}, []);
 
 	return (
 		<div className="mt-5 ms-0 ps-0 px-md-4 px-md-3 ">
 			<div className="row px-0 ms-0 me-0 px-sm-0 px-md-4">
-				<div
-					className="w-100"
-				>
+				<div className="w-100">
 					<div>
 						<input
 							type="text"
@@ -37,12 +35,17 @@ const Search = ({ courses = [] }) => {
 										options
 											.filter((option) => {
 												const upper = e.target.value.toUpperCase();
-												return (option.code.includes(upper) || option.name.toUpperCase().includes(upper)) && !courses.includes(option.code);
-											}).slice(0, 15)
+												return (
+													(option.code.includes(upper) ||
+														option.name.toUpperCase().includes(upper)) &&
+													!courses.includes(option.code)
+												);
+											})
+											.slice(0, 15)
 									);
 								} else {
 									setDropdown(false);
-									setSearchResults();
+									setSearchResults([]);
 								}
 							}}
 						/>
@@ -61,7 +64,7 @@ const Search = ({ courses = [] }) => {
 								}}
 								className=" form-select"
 							>
-								<option selected="selected"> Select Result</option>
+								<option selected> Select Result</option>
 								{searchResults.map((option, index) => (
 									<option key={index} value={option.code}>
 										{option.code + " -  " + option.name}
@@ -82,8 +85,9 @@ const Search = ({ courses = [] }) => {
 									const filtered = selected.filter((elem) => elem != code);
 									setSelected(filtered);
 									window.location.replace(
-										filtered.length == 0 ? "/" :
-											"/search/" + filtered.join("&") + "?=" + search
+										filtered.length == 0
+											? "/"
+											: "/search/" + filtered.join("&") + "?=" + search
 									);
 								}}
 								className="btn btn-sm btn-light col mx-1 ps-3 fw-light shadow-sm  "
@@ -101,6 +105,5 @@ const Search = ({ courses = [] }) => {
 		</div>
 	);
 };
-
 
 export default Search;
