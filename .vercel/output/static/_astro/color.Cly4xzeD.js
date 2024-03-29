@@ -1,0 +1,1 @@
+function n(e){let t=0;if(e.length==0)return t;for(let o=0;o<e.length;o++){let r=e.charCodeAt(o);t=(t<<6)-t+r,t=t&t}return t}function h(e){const t=["#FF2E2E","#FFA14A ","#F5DF14","#60DD5E","#3ABE6F","#39BCBC","#3F7BC2","#5E2A92","#BC64C4","#ED6890"];return t[Math.abs(n(e)%t.length)]}export{h as g};

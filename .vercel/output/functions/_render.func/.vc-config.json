@@ -1,0 +1,6 @@
+{
+	"runtime": "nodejs18.x",
+	"handler": "home/jon/Career/Software Development/Hackathon/OSC-Spring-2024/study-buddy/.vercel/output/_functions/entry.mjs",
+	"launcherType": "Nodejs",
+	"supportsResponseStreaming": true
+}
