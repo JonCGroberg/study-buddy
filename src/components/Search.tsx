@@ -5,7 +5,7 @@ import getCourseColor from "../utils/color.ts";
 const Search = ({ courses = [] }) => {
 	let [options, setOptions] = useState([]);
 	let [searchResults, setSearchResults] = useState([]);
-	let [search, setSearch] = useState(null);
+	let [search, setSearch] = useState("");
 	let [dropdown, setDropdown] = useState(false);
 	let [selected, setSelected] = useState(courses);
 

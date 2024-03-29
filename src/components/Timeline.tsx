@@ -4,7 +4,7 @@ import { formatAMPM } from "../utils/time";
 import Card from "./Card";
 
 const Timeline = ({ studyGroups, userId }) => (
-	<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5">
+	<div className="row gap-3 py-4 my-4 px-0 px-md-0 px-md-5 m-0 mx-lg-0 mx-md-5  ">
 		{studyGroups.length == 0 ? (
 			<BookSession />
 		) : (
@@ -43,7 +43,7 @@ const CardGroupHeader = ({ sameHourGroups }) => (
 );
 
 const CardGroup = ({ userId, sameHourGroups }) => (
-	<div className="small px-3 ps-sm-3 ps-lg-4 ms-sm-3 ms-lg-4 row gap-3">
+	<div className="small px-3 ps-sm-3 ps-lg-4 ms-sm-3 ms-lg-4 row gap-3 accordion">
 		{sameHourGroups[1].map((group: any, index: Key) => {
 			return <Card key={index} cardData={group} userId={userId} />;
 		})}

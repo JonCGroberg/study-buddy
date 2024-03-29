@@ -1,15 +1,15 @@
 import getCourseColor from "../utils/color";
-import {formatAMPM} from "../utils/time";
+import { formatAMPM } from "../utils/time";
 
 const Card = ({ cardData, userId }) => {
 	let userAlreadyJoined = cardData.buddies
-		.map((user: { id: any; }) => user.id)
+		.map((user: { id: any }) => user.id)
 		.includes(userId);
 	const outlineColor = getCourseColor(cardData.course);
 
 	return (
 		<div
-			className="card px-2 shadow-sm py-0 py-sm-2"
+			className="card px-2 shadow-sm py-0 py-sm-3"
 			style={{
 				border: "0.1em solid " + outlineColor,
 				borderLeft: "1em solid " + outlineColor
@@ -42,7 +42,7 @@ const Card = ({ cardData, userId }) => {
 							<LeaveBtn cardData={cardData} />
 						)}
 						<button
-						className="btn btn-sm p-2 px-3 shadow-sm text-primary border border-light     fw-medium col"
+							className="btn btn-sm p-2 px-3 btn-light shadow-sm border  col"
 							data-bs-toggle="modal"
 							data-bs-target={"#modal-" + cardData.id}
 						>
@@ -115,7 +115,7 @@ const Modal = ({ cardData }) => (
 const JoinBtn = ({ cardData }) => (
 	<button
 		onClick={() => handleJoin(cardData.id)}
-		className="btn-sm btn small btn-outline-primary ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm btn-width shadow-sm"
+		className="btn-sm btn small btn-outline-primary ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm btn-width shadow-sm  "
 	>
 		{"Join This Group (" + cardData.buddies.length}/
 		{(cardData.max_buddies < 1 ? "∞" : cardData.max_buddies) + ")"}
@@ -125,7 +125,7 @@ const JoinBtn = ({ cardData }) => (
 const LeaveBtn = ({ cardData }) => (
 	<button
 		onClick={() => handleLeave(cardData.id)}
-		className="btn-sm btn small btn-outline-danger ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm  btn-width "
+		className="btn-sm btn small btn-outline-danger ms-0 p-2 py-2 px-3 mx-2 fw-medium  col-12 col-sm  btn-width shadow-sm"
 	>
 		{"Leave This Group (" + cardData.buddies.length}/
 		{(cardData.max_buddies < 1 ? "∞" : cardData.max_buddies) + ")"}
