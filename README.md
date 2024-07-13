@@ -10,10 +10,10 @@
   <h3 align="center">Study Buddies</h3>
   <p align="center">
     <p> Study Smarter, Together: Join Study Buddies and Ace Your UF Courses!</p>
-  
+
   </p>
   <br/>
- 
+
 </div>
 
 ### Demo
@@ -74,6 +74,21 @@ git clone https://github.com/JonCGroberg/study-buddy
 ```
 
 ### Build/Run
+
+
+1. Create a firebase acount and create a .env file in the root directory with the following variables:
+
+```shell
+FIREBASE_PRIVATE_KEY_ID=
+FIREBASE_PRIVATE_KEY=
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_CLIENT_ID=
+FIREBASE_AUTH_URI=
+FIREBASE_TOKEN_URI=
+FIREBASE_AUTH_CERT_URL=
+FIREBASE_CLIENT_CERT_URL=
+```
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
