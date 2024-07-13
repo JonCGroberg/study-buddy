@@ -5,7 +5,7 @@ import HeroLayout from "../layouts/HeroLayout.astro";
 
 <Layout>
     <HeroLayout>
-        <div class="col text-center">
+        <div class="col-12 text-center mx-auto">
             <img
                 src="/image.png"
                 class="img-fluid rounded mx-auto"
@@ -18,11 +18,14 @@ import HeroLayout from "../layouts/HeroLayout.astro";
                 Sign up to get started, or log in if you have an account!
             </h5>
         </div>
-        <div class="my-4 gap-3 text-center row px-3">
-            <a href="/signin" class="btn btn-primary rounded-3 col">Sign In</a>
+        <div class="my-4 gap-3 py-2">
+            <a href="/signin" class="btn btn-primary rounded-3 col-12"
+                >Sign In</a
+            >
             <a
                 href="/register"
-                class="btn btn-outline-secondary rounded-3 col-12">Register</a
+                class="btn btn-outline-secondary rounded-3 col-12 mt-3"
+                >Register</a
             >
         </div>
     </HeroLayout>
